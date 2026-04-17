@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的电影世界 - 电影榜单</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <a href="index.html" class="nav-logo">我的电影世界</a>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html">首页</a></li>
+                    <li class="nav-item"><a href="classic-movies.html">经典电影</a></li>
+                    <li class="nav-item"><a href="actors.html">喜爱的演员</a></li>
+                    <li class="nav-item active"><a href="movie-rankings.html">电影榜单</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 电影榜单 & 小工具 -->
+    <section class="rankings-section">
+        <div class="container">
+            <h2 class="section-title">电影榜单 & 小工具</h2>
+            
+            <!-- 搜索功能 -->
+            <div class="search-section">
+                <input type="text" id="movie-search" placeholder="搜索电影..." class="search-input">
+                <button class="search-btn">搜索</button>
+            </div>
+            
+            <!-- 筛选功能 -->
+            <div class="filter-section">
+                <h3 class="filter-title">筛选</h3>
+                <div class="filter-options">
+                    <div class="filter-group">
+                        <h4>电影类型</h4>
+                        <div class="filter-buttons">
+                            <button class="filter-btn">全部</button>
+                            <button class="filter-btn">动作</button>
+                            <button class="filter-btn">喜剧</button>
+                            <button class="filter-btn">爱情</button>
+                            <button class="filter-btn">科幻</button>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <h4>评分范围</h4>
+                        <div class="filter-buttons">
+                            <button class="filter-btn">全部</button>
+                            <button class="filter-btn">9分以上</button>
+                            <button class="filter-btn">8-9分</button>
+                            <button class="filter-btn">7-8分</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 豆瓣TOP电影榜单 -->
+            <div class="rankings-container">
+                <h3 class="rankings-title">豆瓣电影TOP250</h3>
+                <div class="rankings-list">
+                    <div class="ranking-item">
+                        <div class="ranking-number">1</div>
+                        <img src="../images/ranking1.jpg" alt="电影海报" class="ranking-poster">
+                        <div class="ranking-info">
+                            <h4 class="ranking-title">电影名称1</h4>
+                            <div class="ranking-meta">
+                                <span class="ranking-rating">9.7</span>
+                                <span class="ranking-votes">100万+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="ranking-number">2</div>
+                        <img src="../images/ranking2.jpg" alt="电影海报" class="ranking-poster">
+                        <div class="ranking-info">
+                            <h4 class="ranking-title">电影名称2</h4>
+                            <div class="ranking-meta">
+                                <span class="ranking-rating">9.6</span>
+                                <span class="ranking-votes">90万+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="ranking-number">3</div>
+                        <img src="../images/ranking3.jpg" alt="电影海报" class="ranking-poster">
+                        <div class="ranking-info">
+                            <h4 class="ranking-title">电影名称3</h4>
+                            <div class="ranking-meta">
+                                <span class="ranking-rating">9.5</span>
+                                <span class="ranking-votes">80万+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="ranking-number">4</div>
+                        <img src="../images/ranking4.jpg" alt="电影海报" class="ranking-poster">
+                        <div class="ranking-info">
+                            <h4 class="ranking-title">电影名称4</h4>
+                            <div class="ranking-meta">
+                                <span class="ranking-rating">9.4</span>
+                                <span class="ranking-votes">70万+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ranking-item">
+                        <div class="ranking-number">5</div>
+                        <img src="../images/ranking5.jpg" alt="电影海报" class="ranking-poster">
+                        <div class="ranking-info">
+                            <h4 class="ranking-title">电影名称5</h4>
+                            <div class="ranking-meta">
+                                <span class="ranking-rating">9.3</span>
+                                <span class="ranking-votes">60万+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="copyright">© 2026 我的电影世界 版权所有</p>
+                <div class="contact">
+                    <p>联系邮箱：contact@mymovieworld.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
