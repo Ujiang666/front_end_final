@@ -22,15 +22,17 @@
         </nav>
     </header>
 
-    <!-- 电影榜单 & 小工具 -->
+    <!-- 电影榜单 & 筛选小工具 -->
     <section class="rankings-section">
         <div class="container">
             <h2 class="section-title">电影榜单 & 小工具</h2>
             
             <!-- 搜索功能 -->
             <div class="search-section">
-                <input type="text" id="movie-search" placeholder="搜索电影..." class="search-input">
+                <input type="text" id="movie-search" placeholder="搜索电影名称、导演或演员..." class="search-input">
                 <button class="search-btn">搜索</button>
+                <button id="clear-search" class="clear-btn" style="display: none;">清除</button>
+                <div id="search-result-count" class="search-result-count"></div>
             </div>
             
             <!-- 筛选功能 -->
@@ -40,84 +42,109 @@
                     <div class="filter-group">
                         <h4>电影类型</h4>
                         <div class="filter-buttons">
-                            <button class="filter-btn">全部</button>
-                            <button class="filter-btn">动作</button>
-                            <button class="filter-btn">喜剧</button>
-                            <button class="filter-btn">爱情</button>
-                            <button class="filter-btn">科幻</button>
+                            <button class="filter-btn active" data-filter="genre" data-value="all">全部</button>
+                            <button class="filter-btn" data-filter="genre" data-value="动作">动作</button>
+                            <button class="filter-btn" data-filter="genre" data-value="喜剧">喜剧</button>
+                            <button class="filter-btn" data-filter="genre" data-value="爱情">爱情</button>
+                            <button class="filter-btn" data-filter="genre" data-value="科幻">科幻</button>
+                            <button class="filter-btn" data-filter="genre" data-value="剧情">剧情</button>
+                            <button class="filter-btn" data-filter="genre" data-value="动画">动画</button>
+                            <button class="filter-btn" data-filter="genre" data-value="犯罪">犯罪</button>
                         </div>
                     </div>
                     <div class="filter-group">
                         <h4>评分范围</h4>
                         <div class="filter-buttons">
-                            <button class="filter-btn">全部</button>
-                            <button class="filter-btn">9分以上</button>
-                            <button class="filter-btn">8-9分</button>
-                            <button class="filter-btn">7-8分</button>
+                            <button class="filter-btn active" data-filter="rating" data-value="all">全部</button>
+                            <button class="filter-btn" data-filter="rating" data-value="9+">9分以上</button>
+                            <button class="filter-btn" data-filter="rating" data-value="8-9">8-9分</button>
+                            <button class="filter-btn" data-filter="rating" data-value="7-8">7-8分</button>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <h4>上映年份</h4>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="year" data-value="all">全部</button>
+                            <button class="filter-btn" data-filter="year" data-value="2020-">2020年以后</button>
+                            <button class="filter-btn" data-filter="year" data-value="2010-2019">2010-2019年</button>
+                            <button class="filter-btn" data-filter="year" data-value="2000-2009">2000-2009年</button>
+                            <button class="filter-btn" data-filter="year" data-value="1990-1999">1990-1999年</button>
+                            <button class="filter-btn" data-filter="year" data-value="1990-">1990年以前</button>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <h4>国家/地区</h4>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="country" data-value="all">全部</button>
+                            <button class="filter-btn" data-filter="country" data-value="中国大陆">中国大陆</button>
+                            <button class="filter-btn" data-filter="country" data-value="中国香港">中国香港</button>
+                            <button class="filter-btn" data-filter="country" data-value="中国台湾">中国台湾</button>
+                            <button class="filter-btn" data-filter="country" data-value="美国">美国</button>
+                            <button class="filter-btn" data-filter="country" data-value="日本">日本</button>
+                            <button class="filter-btn" data-filter="country" data-value="韩国">韩国</button>
+                            <button class="filter-btn" data-filter="country" data-value="英国">英国</button>
+                            <button class="filter-btn" data-filter="country" data-value="法国">法国</button>
+                            <button class="filter-btn" data-filter="country" data-value="德国">德国</button>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <h4>评分人数</h4>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="ratingCount" data-value="all">全部</button>
+                            <button class="filter-btn" data-filter="ratingCount" data-value="100万+">100万以上</button>
+                            <button class="filter-btn" data-filter="ratingCount" data-value="50万-100万">50-100万</button>
+                            <button class="filter-btn" data-filter="ratingCount" data-value="10万-50万">10-50万</button>
+                            <button class="filter-btn" data-filter="ratingCount" data-value="10万-">10万以下</button>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <h4>排名范围</h4>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="rank" data-value="all">全部</button>
+                            <button class="filter-btn" data-filter="rank" data-value="top50">前50名</button>
+                            <button class="filter-btn" data-filter="rank" data-value="top100">前100名</button>
+                            <button class="filter-btn" data-filter="rank" data-value="top150">前150名</button>
+                            <button class="filter-btn" data-filter="rank" data-value="top200">前200名</button>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <h4>筛选组合</h4>
+                        <div class="filter-combination">
+                            <label><input type="radio" name="combination" value="and" checked>满足所有条件</label>
+                            <label><input type="radio" name="combination" value="or">满足任一条件</label>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <h4>筛选管理</h4>
+                        <div class="filter-management">
+                            <button id="save-filters" class="filter-btn">保存当前筛选</button>
+                            <button id="load-filters" class="filter-btn">加载筛选</button>
+                            <button id="reset-filters" class="filter-btn">重置所有筛选</button>
                         </div>
                     </div>
                 </div>
             </div>
             
+            <!-- 加载状态 -->
+            <div id="loading" class="loading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>加载中...</p>
+            </div>
+            
             <!-- 豆瓣TOP电影榜单 -->
             <div class="rankings-container">
-                <h3 class="rankings-title">豆瓣电影TOP250</h3>
-                <div class="rankings-list">
-                    <div class="ranking-item">
-                        <div class="ranking-number">1</div>
-                        <img src="../images/ranking1.jpg" alt="电影海报" class="ranking-poster">
-                        <div class="ranking-info">
-                            <h4 class="ranking-title">电影名称1</h4>
-                            <div class="ranking-meta">
-                                <span class="ranking-rating">9.7</span>
-                                <span class="ranking-votes">100万+</span>
-                            </div>
-                        </div>
+                <h3 class="rankings-title">电影排行</h3>
+                <div id="rankings-list" class="rankings-list">
+                    <!-- 电影列表将通过JavaScript动态生成 -->
+                </div>
+                
+                <!-- 分页控件 -->
+                <div id="pagination" class="pagination">
+                    <button id="prev-page" class="pagination-btn">上一页</button>
+                    <div class="pagination-numbers">
+                        <!-- 页码按钮将通过JavaScript动态生成 -->
                     </div>
-                    <div class="ranking-item">
-                        <div class="ranking-number">2</div>
-                        <img src="../images/ranking2.jpg" alt="电影海报" class="ranking-poster">
-                        <div class="ranking-info">
-                            <h4 class="ranking-title">电影名称2</h4>
-                            <div class="ranking-meta">
-                                <span class="ranking-rating">9.6</span>
-                                <span class="ranking-votes">90万+</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ranking-item">
-                        <div class="ranking-number">3</div>
-                        <img src="../images/ranking3.jpg" alt="电影海报" class="ranking-poster">
-                        <div class="ranking-info">
-                            <h4 class="ranking-title">电影名称3</h4>
-                            <div class="ranking-meta">
-                                <span class="ranking-rating">9.5</span>
-                                <span class="ranking-votes">80万+</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ranking-item">
-                        <div class="ranking-number">4</div>
-                        <img src="../images/ranking4.jpg" alt="电影海报" class="ranking-poster">
-                        <div class="ranking-info">
-                            <h4 class="ranking-title">电影名称4</h4>
-                            <div class="ranking-meta">
-                                <span class="ranking-rating">9.4</span>
-                                <span class="ranking-votes">70万+</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ranking-item">
-                        <div class="ranking-number">5</div>
-                        <img src="../images/ranking5.jpg" alt="电影海报" class="ranking-poster">
-                        <div class="ranking-info">
-                            <h4 class="ranking-title">电影名称5</h4>
-                            <div class="ranking-meta">
-                                <span class="ranking-rating">9.3</span>
-                                <span class="ranking-votes">60万+</span>
-                            </div>
-                        </div>
-                    </div>
+                    <button id="next-page" class="pagination-btn">下一页</button>
                 </div>
             </div>
         </div>
