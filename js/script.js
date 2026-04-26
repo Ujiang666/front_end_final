@@ -758,9 +758,88 @@ function initMovieRankings() {
     init();
 }
 
+function initactors(){
+    const source1=["../images/actors/a1-stage-photo1.jpg", "../images/actors/a1-stage-photo2.jpg", "../images/actors/a1-stage-photo3.jpg", "../images/actors/a1-stage-photo3.jpg", "../images/actors/a1-stage-photo4.jpg", "../images/actors/a1-stage-photo5.jpg", "../images/actors/a1-stage-photo6.jpg", "../images/actors/a1-stage-photo7.jpg", "../images/actors/a1-stage-photo8.jpg", "../images/actors/a1-stage-photo9.jpg", "../images/actors/a1-stage-photo10.jpg"];
+    const source2=["../images/actors/a2-stage-photo1.jpg","../images/actors/a2-stage-photo2.jpg","../images/actors/a2-stage-photo3.jpg","../images/actors/a2-stage-photo4.jpg"];
+    function initCarousel2(imgid,sources,interval=2000){
+        let index=0;
+        document.getElementById(imgid).src=sources[index];
+        setInterval(function(){
+            index++;
+            if(index>=sources.length){
+                index=0;
+            }
+            document.getElementById(imgid).src=sources[index];
+        },interval);
+
+    }
+    initCarousel2("stage-photo1",source1);
+    initCarousel2("stage-photo2",source2);
+
+
+    const actorbios = document.querySelectorAll('.actor-bio');
+    actorbios.forEach(bio => {
+        const toggleText = bio.querySelector('.toggle-text');
+        const textContent=bio.querySelector('.bio-text');
+        toggleText.addEventListener('click', () => {
+        textContent.classList.toggle('expanded');
+
+        toggleText.textContent = textContent.classList.contains('expanded') ? '收起' : '展开';
+        });
+    });
+
+
+
+
+    // 找到每一个独立演员分页区块
+    const actorSections = document.querySelectorAll('.actor-movies-module');
+
+    actorSections.forEach(container => {
+        // 当前区块内部去找页面、按钮
+        const pages = container.querySelectorAll('.movie-page');
+        const prevBtn = container.querySelector('.prev-btn');
+        const nextBtn = container.querySelector('.next-btn');
+        const pageInfo = container.querySelector('.page-info');
+
+        let currentPage = 1;
+        const totalPages = pages.length;
+
+        function showPage(pageNum) {
+            pages.forEach(page => page.classList.remove('active'));
+            const targetPage = container.querySelector(`.movie-page[data-page="${pageNum}"]`);
+            if(targetPage){
+                targetPage.classList.add('active');
+            }
+            pageInfo.textContent = `${pageNum}/${totalPages}`;
+            prevBtn.classList.toggle('disabled', pageNum === 1);
+            nextBtn.classList.toggle('disabled', pageNum === totalPages);
+        }
+
+        prevBtn.addEventListener('click', function () {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        });
+
+        nextBtn.addEventListener('click', function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        });
+
+        // 初始显示第一页
+        showPage(1);
+    });
+
+}
+
+
 // 页面加载完成后初始化所有功能
 document.addEventListener('DOMContentLoaded', function() {
     initCarousel();
     initExpandButtons();
     initMovieRankings();
+    initactors();
 });
