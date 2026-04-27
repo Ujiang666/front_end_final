@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>影片详情 | 暗房 CINEMA</title>
+    <link rel="stylesheet" href="../css/my-detail.css" />
+  </head>
+  <body>
+    <div class="noise-overlay"></div>
+
+    <nav id="detailNav">
+      <div id="pagination"></div>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="classic-movies.html">长廊</a></li>
+        <li><a href="login.html">登录</a></li>
+        <li><a href="contact.html">联系</a></li>
+      </ul>
+    </nav>
+
+    <section class="detail-hero" id="detailHero"></section>
+
+    <footer>
+      <div>© 2025 暗房 CINEMA</div>
+    </footer>
+
+    <script>
+      (function () {
+        "use strict";
+
+        const movies = {
+          interstellar: {
+            title: "星际穿越",
+            enTitle: "Interstellar",
+            year: "2014",
+            director: "克里斯托弗·诺兰",
+            country: "美国 / 英国 / 加拿大",
+            genre: "科幻 / 冒险 / 剧情",
+            duration: "169 分钟",
+            rating: "9.4",
+            quote: "爱是唯一可以超越时间与空间的事物。",
+            desc: "在不久的将来，地球农作物因枯萎病而大面积减产，人类面临灭绝危机。前 NASA 飞行员库珀意外发现 NASA 秘密基地，并被招募执行一项穿越虫洞、寻找新家园的星际任务。在广袤宇宙中，他与女儿墨菲之间的爱成为跨越维度的唯一纽带。影片以硬科幻为骨架，以父女情感为灵魂，将黑洞、五维空间与时间膨胀等概念化为震撼的视觉与情感体验。",
+            poster: "../images/电影截图/星际穿越/04 (504).jpg",
+            screenshots: [
+              "22 (514).jpg",
+              "28 (513).jpg",
+              "29 (513).jpg",
+              "30 (513).jpg",
+              "33 (512).jpg",
+              "46 (500).jpg",
+            ],
+          },
+          dreamers: {
+            title: "戏梦巴黎",
+            enTitle: "The Dreamers",
+            year: "2003",
+            director: "贝纳尔多·贝托鲁奇",
+            country: "法国 / 英国 / 意大利",
+            genre: "剧情 / 爱情",
+            duration: "115 分钟",
+            rating: "8.1",
+            quote: "在电影里，我们做梦；在梦里，我们活着。",
+            desc: "1968 年，巴黎学运前夕。美国留学生马修在巴黎结识了一对孪生兄妹伊莎贝拉和泰奥。三人在封闭的公寓中，以电影为媒介，模仿经典片段、玩禁忌游戏，在艺术与欲望的边缘试探。贝托鲁奇以迷影情怀编织了一曲关于青春、革命与身份的挽歌，让 1968 年的理想主义热血与私密房间的体温相互交织。",
+            poster: "../images/电影截图/戏梦巴黎/08 (1038).jpg",
+            screenshots: [
+              "03 (1037).jpg",
+              "30 (1058).jpg",
+              "65 (710).jpg",
+              "人物1.jpg",
+              "人物2.jpg",
+            ],
+          },
+          americanpsycho: {
+            title: "美国精神病人",
+            enTitle: "American Psycho",
+            year: "2000",
+            director: "玛丽·哈伦",
+            country: "美国",
+            genre: "剧情 / 犯罪 / 惊悚",
+            duration: "102 分钟",
+            rating: "8.0",
+            quote: "表面之下，没有灵魂。",
+            desc: "1987 年的纽约华尔街，投资精英帕特里克·贝特曼拥有完美的外表、光鲜的职业和空洞的内心。在物质过剩与消费主义的包裹下，他对名牌名片、高级餐厅的 obsession 逐渐演变为难以抑制的暴力冲动。玛丽·哈伦以冷峻的黑色幽默解构了 80 年代美国梦的阴暗面，让贝特曼成为资本主义精神危机的极端化身。",
+            poster: "../images/电影截图/美国精神病人/08 (71).jpg",
+            screenshots: [
+              "08 (71).jpg",
+              "24 (72).jpg",
+              "27 (72).jpg",
+            ],
+          },
+          orlando: {
+            title: "奥兰多",
+            enTitle: "Orlando",
+            year: "1992",
+            director: "莎莉·波特",
+            country: "英国 / 俄罗斯 / 法国 / 意大利 / 荷兰",
+            genre: "剧情 / 爱情 / 奇幻",
+            duration: "94 分钟",
+            rating: "8.2",
+            quote: "不变的是灵魂，变化的是身体。",
+            desc: "改编自弗吉尼亚·伍尔夫同名小说。贵族青年奥兰多因得到伊丽莎白女王的宠幸而获得庄园与不老的承诺。四百年间，他经历了爱情、诗歌、政治与战争，在一夜长眠后醒来变为女性，继续以新的性别身份漫游世界。莎莉·波特以华丽的视觉语言与蒂尔达·斯文顿的中性气质，探讨了性别、身份与时间的流动性。",
+            poster: "../images/电影截图/奥兰多/奥兰多-电影海报.jpg",
+            screenshots: [
+              "orlando018.jpg",
+              "orlando020.jpg",
+              "orlando023.jpg",
+            ],
+          },
+          thelma: {
+            title: "末路狂花",
+            enTitle: "Thelma & Louise",
+            year: "1991",
+            director: "雷德利·斯科特",
+            country: "美国 / 法国",
+            genre: "剧情 / 犯罪 / 惊悚",
+            duration: "130 分钟",
+            rating: "8.9",
+            quote: "让我们 keep going。",
+            desc: "塞尔玛和路易斯是两个要好的朋友，她们决定周末外出旅行散心。然而一个小小的意外却让她们的逃亡之旅变成了一场无法回头的公路反叛。面对警察的追捕与男性的压迫，两人在荒漠公路上越飞越高。影片以女性视角审视父权社会，成为女性主义电影史上最震撼的篇章之一。",
+            poster: "../images/电影截图/末路狂花/末路狂花-海报.jpg",
+            screenshots: [
+              "Thelma__Louise_51.jpg",
+              "Thelma__Louise_54.jpg",
+              "Thelma__Louise_55.jpg",
+              "Thelma__Louise_65.jpg",
+            ],
+          },
+        };
+
+        const order = [
+          "interstellar",
+          "dreamers",
+          "americanpsycho",
+          "orlando",
+          "thelma",
+        ];
+
+        function getParam(name) {
+          return new URL(window.location.href).searchParams.get(name);
+        }
+
+        const id = getParam("id") || "interstellar";
+        const movie = movies[id];
+
+        if (!movie) {
+          document.body.innerHTML =
+            '<div style="padding:4rem;color:#f0f0f0;text-align:center;font-family:sans-serif;"><h1 style="font-size:3rem;margin-bottom:1rem;">影片未找到</h1><a href="classic-movies.html" style="color:#ff0040;">返回长廊</a></div>';
+          return;
+        }
+
+        /* American Psycho special layout */
+        if (id === "americanpsycho") {
+          const basePath = movie.poster.substring(
+            0,
+            movie.poster.lastIndexOf("/") + 1,
+          );
+
+          const hero = document.getElementById("detailHero");
+          hero.className = "psycho-hero";
+          hero.style.backgroundImage =
+            'url("' + basePath + '美国精神病人-背景.jpg")';
+          hero.innerHTML =
+            '<div class="psycho-strips">' +
+            '<img class="psycho-strip" src="' + basePath + '涂鸦.jpg" alt="" />' +
+            '<img class="psycho-strip" src="' + basePath + '名片.jpg" alt="" />' +
+            '<img class="psycho-strip" src="' + basePath + '眼睛条.jpg" alt="" />' +
+            "</div>" +
+            '<div class="psycho-character" style="background-image:url(\'' + basePath + "美国精神病人-人物.PNG')\"></div>" +
+            '<div class="psycho-content">' +
+            '<div class="psycho-label">Feature Film · ' + movie.year + "</div>" +
+            '<h1 class="psycho-title">American Psycho</h1>' +
+            '<div class="psycho-divider"></div>' +
+            '<div class="psycho-meta">' + movie.director + " · " + movie.genre + "</div>" +
+            '<div class="psycho-quote">' + movie.quote + "</div>" +
+            '<div class="psycho-desc">' + movie.desc + "</div>" +
+            "</div>";
+
+          const esc = (s) => s.replace(/"/g, "&quot;");
+          const reviewMiao =
+            "Christina Bale的表演真真好。再没有比这更有魅力的变态杀人狂了。他的主人公叫Patrick Bateman，哈佛大学毕业，进而深造于哈佛大学商学院，现27岁，是Wall Street上某投行Pierce & Pierce的Vice President。他每天给自己做面膜，健身，用冰袋敷脸使皮肤有弹性，用名目繁多的洗浴用品。出入高级酒店及夜总会。有高贵气息的变态人士当然要不停的杀人才有看头。于是这个片子说恶心也是很恶心呢。高级公寓里血淋淋的女孩尸体成排，冰箱里人头和甜品共存。杀人的器具有刀枪，更有电锯和斧子。然而说好玩也是很好玩的。Bateman杀人是出于不可满足的欲望，以及他无法摆脱的绝望和伤痛。他的绝望和伤痛来源于订不到某高级餐厅位子的尴尬，或者看到同僚印制比他精美的名片时的嫉妒。黑色幽默是这片子的一个特点。Bateman出于嫉妒杀了同僚Paul Allen，然后去Paul家里收拾行装，伪装成Paul去伦敦出差，他发现Paul的公寓地段比他的更好，于是大受刺激。他的言行举止充满优雅，他的微笑令人无法抗拒。这片子有趣就有趣在结尾——有了那样的结尾，你开始怀疑他到底有没有杀过那些人，你开始怀疑那个社会里的每一个人，你甚至开始同情Patrick Bateman。这不是一个单纯的杀人故事，它涵盖了对于80年代美国社会里精英生活的态度：对道德沦丧的拜金世界的否定和批判，作者别出心裁，从这么个极端切入点讲他的故事。";
+          const reviewBill =
+            '除了一幕戏，这部电影仿佛就说通了。从原版小说1991年出版开始，围绕American Psycho的争论就没有停止过。当这部曾被论为unfilmable的作品于2000年被最终搬上银幕之后，有关它的争论仍未停息。有一个问题一直困扰着读者和观众，那就是作品中表现的种种凶杀案究竟是主人公Patrick Bateman真实犯下的，还是幻想出来的？单单就影片作为讨论对象，这部影片始终没有给出一个明确而清晰的答案。真实派主张Bateman的确犯下了数宗杀人案，包括谋杀Paul Allen。作品实质上除了对于Bateman的变态性格与行为进行直接且细节化的呈现之外，同时也讽刺了在当今物质奢靡条件下人与人之间世俗而疏远的关系。片中人物经常互相叫错姓名，甚至在结尾处当Bateman向其律师坦白犯罪经历时也被律师误认为是Davis。Bateman身为投行金领一族，坦供罪行却无人相信，这不能不说是对于现实的一次黑色幽默式的嘲讽。临近结尾时Bateman去Paul Allen原先的住所，却发现已被装饰一新，且原先存放着的遗体残骸也神秘失踪了。一位老妇人神秘而略显心慌地让他赶快离去，不要给他们带来麻烦——这一场戏的存在，让凶杀在真实与虚幻间游离不定，不曾确凿。整场电影最终在一种不确定的结尾中落下帷幕。影片最后一个镜头Bateman背后的那扇门上写着告示："THIS IS NOT AN EXIT"，这也是原小说的最后一句话。单纯讨论凶杀是真是假，根本就没有出路——因为连作者与编剧本人也不曾知道答案。';
+
+          const secondAct = document.createElement("section");
+          secondAct.className = "second-act";
+          secondAct.innerHTML =
+            '<img class="second-act-blood" src="' + basePath + '血.jpg" alt="" />' +
+            '<div class="cards-grid psycho-cards">' +
+            '<div class="card" data-type="img" data-src="' + basePath + '美国精神病人-海报.jpg">' +
+            '<img class="card-img" src="' + basePath + '美国精神病人-海报.jpg" alt="海报" />' +
+            "</div>" +
+            '<div class="card" data-type="review" data-author="豆瓣 苗儿" data-full="' + esc(reviewMiao) + '">' +
+            '<div class="card-review"><div class="card-review-header">豆瓣 苗儿</div>' +
+            '<div class="card-review-text">' + reviewMiao.substring(0, 280) + "...</div></div>" +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + '08 (71).jpg">' +
+            '<img class="card-img" src="' + basePath + '08 (71).jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + '24 (72).jpg">' +
+            '<img class="card-img" src="' + basePath + '24 (72).jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="review" data-author="豆瓣 Bill" data-full="' + esc(reviewBill) + '">' +
+            '<div class="card-review"><div class="card-review-header">豆瓣 Bill</div>' +
+            '<div class="card-review-text">' + reviewBill.substring(0, 280) + "...</div></div>" +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + '27 (72).jpg">' +
+            '<img class="card-img" src="' + basePath + '27 (72).jpg" alt="剧照" />' +
+            "</div>" +
+            "</div>";
+
+          document.querySelector("footer").before(secondAct);
+
+          const lightbox = document.createElement("div");
+          lightbox.className = "lightbox";
+          lightbox.id = "lightbox";
+          lightbox.innerHTML =
+            '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
+            '<div class="lightbox-content" id="lightboxContent"></div>';
+          document.body.appendChild(lightbox);
+
+          document.querySelectorAll(".card").forEach(function (card) {
+            card.addEventListener("click", function () {
+              const type = card.dataset.type;
+              const content = document.getElementById("lightboxContent");
+              if (type === "img") {
+                content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
+              } else {
+                content.innerHTML =
+                  '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
+                  "<p>" + card.dataset.full + "</p></div>";
+              }
+              lightbox.classList.add("active");
+              document.body.style.overflow = "hidden";
+            });
+          });
+
+          document.getElementById("lightboxClose").addEventListener("click", function () {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = "";
+          });
+
+          lightbox.addEventListener("click", function (e) {
+            if (e.target === lightbox) {
+              lightbox.classList.remove("active");
+              document.body.style.overflow = "";
+            }
+          });
+
+          const idx = order.indexOf(id);
+          const prevId = order[(idx - 1 + order.length) % order.length];
+          const nextId = order[(idx + 1) % order.length];
+          document.getElementById("pagination").innerHTML =
+            '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
+            '<span class="pagination-label">← Prev</span>' +
+            '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
+            '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
+            '<span class="pagination-label">Next →</span>' +
+            '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
+
+          (function () {
+            var section = document.querySelector(".second-act");
+            var blood = section.querySelector(".second-act-blood");
+            function update() {
+              var rect = section.getBoundingClientRect();
+              var progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight * 0.6)));
+              if (blood) {
+                blood.style.clipPath = "inset(0 0 " + Math.max(0, 100 - progress * 120) + "% 0)";
+                blood.style.opacity = String(Math.min(0.52, progress * 0.65));
+              }
+            }
+            window.addEventListener("scroll", update, { passive: true });
+            update();
+          })();
+
+          return;
+        }
+
+        /* Orlando special layout */
+        if (id === "orlando") {
+          const basePath = movie.poster.substring(0, movie.poster.lastIndexOf("/") + 1);
+
+          const hero = document.getElementById("detailHero");
+          hero.className = "orlando-hero";
+          hero.style.backgroundImage = 'url("' + basePath + '奥兰多-背景.jpg")';
+          hero.innerHTML =
+            '<img class="orlando-tree" src="' + basePath + '树.jpg" alt="" />' +
+            '<div class="orlando-character" style="background-image:url(\'' + basePath + "奥兰多-人物.PNG')\"></div>" +
+            '<div class="orlando-content">' +
+            '<div class="orlando-label">Feature Film · ' + movie.year + "</div>" +
+            '<h1 class="orlando-title">Orlando</h1>' +
+            '<div class="orlando-divider"></div>' +
+            '<div class="orlando-meta">' + movie.director + " &nbsp;·&nbsp; " + movie.genre + "</div>" +
+            '<blockquote class="orlando-quote">' + movie.quote + "</blockquote>" +
+            '<p class="orlando-desc">' + movie.desc + "</p>" +
+            "</div>";
+
+          const esc = (s) => s.replace(/"/g, "&quot;");
+          const reviewManchild =
+            '首先，从文学改编到电影剧作，如果我们要把作为艺术的电影摆在跟文学不相上下的地位上，把伍尔夫的大部分小说改编成电影看起来就不是什么好主意，这一部电影同样也不能例外。所以，这里我的结论是：这部电影远远没有完成小说的任务，我只能说它的成功之处在于把玩风格，并且迷惑到了大家（特别是在开场的几个极其唯美的镜头，让我也对这部电影充满期待），但是借助风格所要表达的内涵相比与小说的确大打折扣。胡子老师在他那门搞怪的"电影中的世界文学"第一堂课上提到过一种关于小说和电影职能转换的通俗理论：因为电影这门被争论的"艺术"的兴起，传统的古典小说的叙事职能可以说轻而易举的被电影替代。而二十世纪的小说需要另寻出路，摆脱传统的经典叙事模式并把叙事职能转交给了电影这门艺术。依照这样的观点来看，伍尔夫绝大部分小说并不属于传统的经典叙事，而是为大家熟知的"意识流"笔法，在叙事技巧上也远远超出了当时的常规。所以，伍尔夫的小说本身就是叙事学研究的丰富文本，这本身给电影改编带来了巨大的难度，也就是说，这样的文学作品实际上是不适合，或者说不大容易改编成电影作品的。';
+          const reviewBaijing =
+            "在电影院看《奥兰多》是一次无与伦比的体验，绝代佳人奥兰多的不老容颜穿越时光让整块银幕都熠熠生辉。参天大树之下，皮肤紧致光洁的少年奥兰多一边挪步一边呢喃着诗词，当他坐定在树下第一次把眸子朝向镜头——"that is I."——清澈坚定的目光像是可以望穿幕布。不管此后他是对着银幕辩驳男人的劣性，还是学诗求教时羞赧地朝镜头讪讪一笑，甚至是在一觉醒来变成女人后坦然镇定地盯着前方说"Same person. No difference at all. Just a different sex."——轻松自然地审视，落落大方地接受。活了快200多岁的奥兰多带着生的喜悦，丝毫没有厌倦感。经历过老态龙钟的伊丽莎白一世穷奢极贵的宠爱和黄金时代的灭亡后，奥兰多依旧延续着女王赐予他的永葆青春的特权。无论时代还是性别的改变，几乎每过半个世纪他都能找到心之向往：爱，诗歌，政治，社交，性，生育。";
+
+          const secondAct = document.createElement("section");
+          secondAct.className = "second-act";
+          secondAct.innerHTML =
+            '<img class="orlando-figure2" src="' + basePath + '人物2.PNG" alt="" />' +
+            '<div class="cards-grid orlando-cards">' +
+            '<div class="card" data-type="img" data-src="' + basePath + '奥兰多-电影海报.jpg">' +
+            '<img class="card-img" src="' + basePath + '奥兰多-电影海报.jpg" alt="海报" />' +
+            "</div>" +
+            '<div class="card" data-type="review" data-author="豆瓣 Manchild" data-full="' + esc(reviewManchild) + '">' +
+            '<div class="card-review"><div class="card-review-header">豆瓣 Manchild</div>' +
+            '<div class="card-review-text">' + reviewManchild.substring(0, 260) + "…</div></div>" +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + 'orlando018.jpg">' +
+            '<img class="card-img" src="' + basePath + 'orlando018.jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + 'orlando020.jpg">' +
+            '<img class="card-img" src="' + basePath + 'orlando020.jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="review" data-author="豆瓣 白井黑子阿尼娅" data-full="' + esc(reviewBaijing) + '">' +
+            '<div class="card-review"><div class="card-review-header">豆瓣 白井黑子阿尼娅</div>' +
+            '<div class="card-review-text">' + reviewBaijing.substring(0, 260) + "…</div></div>" +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + 'orlando023.jpg">' +
+            '<img class="card-img" src="' + basePath + 'orlando023.jpg" alt="剧照" />' +
+            "</div>" +
+            "</div>";
+
+          document.querySelector("footer").before(secondAct);
+
+          const lightbox = document.createElement("div");
+          lightbox.className = "lightbox";
+          lightbox.id = "lightbox";
+          lightbox.innerHTML =
+            '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
+            '<div class="lightbox-content" id="lightboxContent"></div>';
+          document.body.appendChild(lightbox);
+
+          document.querySelectorAll(".card").forEach(function (card) {
+            card.addEventListener("click", function () {
+              const type = card.dataset.type;
+              const content = document.getElementById("lightboxContent");
+              if (type === "img") {
+                content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
+              } else {
+                content.innerHTML =
+                  '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
+                  "<p>" + card.dataset.full + "</p></div>";
+              }
+              lightbox.classList.add("active");
+              document.body.style.overflow = "hidden";
+            });
+          });
+
+          document.getElementById("lightboxClose").addEventListener("click", function () {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = "";
+          });
+
+          lightbox.addEventListener("click", function (e) {
+            if (e.target === lightbox) {
+              lightbox.classList.remove("active");
+              document.body.style.overflow = "";
+            }
+          });
+
+          const idx = order.indexOf(id);
+          const prevId = order[(idx - 1 + order.length) % order.length];
+          const nextId = order[(idx + 1) % order.length];
+          document.getElementById("pagination").innerHTML =
+            '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
+            '<span class="pagination-label">← Prev</span>' +
+            '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
+            '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
+            '<span class="pagination-label">Next →</span>' +
+            '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
+
+          return;
+        }
+
+        /* Thelma & Louise special layout */
+        if (id === "thelma") {
+          const basePath = movie.poster.substring(0, movie.poster.lastIndexOf("/") + 1);
+
+          const hero = document.getElementById("detailHero");
+          hero.className = "thelma-hero";
+          hero.style.backgroundImage = 'url("' + basePath + '末路狂花-背景.jpg")';
+          hero.innerHTML =
+            '<div class="thelma-character" style="background-image:url(\'' + basePath + "末路狂花-人物.PNG')\"></div>" +
+            '<div class="thelma-content">' +
+            '<div class="thelma-label">Feature Film · ' + movie.year + "</div>" +
+            '<h1 class="thelma-title">THELMA &amp; LOUISE</h1>' +
+            '<div class="thelma-divider"></div>' +
+            '<div class="thelma-meta">' + movie.director + " &nbsp;·&nbsp; " + movie.genre + "</div>" +
+            '<blockquote class="thelma-quote">' + movie.quote + "</blockquote>" +
+            '<p class="thelma-desc">' + movie.desc + "</p>" +
+            "</div>";
+
+          const esc = (s) => s.replace(/"/g, "&quot;");
+          const reviewEmma =
+            "Thelma哭求着说她不愿意，Louise濒临崩溃地怒吼——当女人象这样哭泣的时候，她确实是不愿意——这些，都没换到那个十秒钟后倒在枪口下的男人认真地对待。是什么，给了他这样盲目无赖的自信？一个人，当他/她不被作为一个具有平等对话能力的人的时候，要怎样才能让对方认同，他/她口中吐出的句子原来也有要表达的意义？很多人给这部电影打上女权的标签，如果女权是需要女人争取的、身为人的最基本的权利的简称，那么它确实是女权的。但其实不止女人，每个人都有可能会被迫经历这样的一刻，你说的话被听而不闻，你作的事被视而不见，你所有的努力和解释在未摸到对方的成见的衣角的时候便已灰飞烟灭。那个时候，你怎么办？";
+          const reviewTizi =
+            "忙里偷闲的时候见到了这部电影——《末路狂花》，1991年的老片子。两个多小时的电影叙事紧凑悬念不断，好看。结尾的地方，两位女主角拒绝接受政府改造驱车飞下山崖，玉体粉身碎骨，娇娃灰飞烟灭。这个有点不太符合主流审美期望，却是这部电影最核心的宣言。《末路狂花》里不乏英俊的男人，当时还有些青涩的布拉德皮特便是其中之一，然而就是这一个又一个的富有魅力的男人将塞尔玛和露易丝一步一步地推下悬崖。最终，男人逼死了女人。";
+
+          const secondAct = document.createElement("section");
+          secondAct.className = "second-act";
+          secondAct.innerHTML =
+            '<div class="cards-grid thelma-cards">' +
+            '<div class="card" data-type="img" data-src="' + basePath + '末路狂花-海报.jpg">' +
+            '<img class="card-img" src="' + basePath + '末路狂花-海报.jpg" alt="海报" />' +
+            "</div>" +
+            '<div class="card" data-type="review" data-author="豆瓣 Emma" data-full="' + esc(reviewEmma) + '">' +
+            '<div class="card-review"><div class="card-review-header">豆瓣 Emma</div>' +
+            '<div class="card-review-text">' + reviewEmma.substring(0, 260) + "…</div></div>" +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + 'Thelma__Louise_51.jpg">' +
+            '<img class="card-img" src="' + basePath + 'Thelma__Louise_51.jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + 'Thelma__Louise_54.jpg">' +
+            '<img class="card-img" src="' + basePath + 'Thelma__Louise_54.jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + 'Thelma__Louise_55.jpg">' +
+            '<img class="card-img" src="' + basePath + 'Thelma__Louise_55.jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="review" data-author="豆瓣 梯子" data-full="' + esc(reviewTizi) + '">' +
+            '<div class="card-review"><div class="card-review-header">豆瓣 梯子</div>' +
+            '<div class="card-review-text">' + reviewTizi.substring(0, 260) + "…</div></div>" +
+            "</div>" +
+            "</div>";
+
+          document.querySelector("footer").before(secondAct);
+
+          const lightbox = document.createElement("div");
+          lightbox.className = "lightbox";
+          lightbox.id = "lightbox";
+          lightbox.innerHTML =
+            '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
+            '<div class="lightbox-content" id="lightboxContent"></div>';
+          document.body.appendChild(lightbox);
+
+          document.querySelectorAll(".card").forEach(function (card) {
+            card.addEventListener("click", function () {
+              const type = card.dataset.type;
+              const content = document.getElementById("lightboxContent");
+              if (type === "img") {
+                content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
+              } else {
+                content.innerHTML =
+                  '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
+                  "<p>" + card.dataset.full + "</p></div>";
+              }
+              lightbox.classList.add("active");
+              document.body.style.overflow = "hidden";
+            });
+          });
+
+          document.getElementById("lightboxClose").addEventListener("click", function () {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = "";
+          });
+
+          lightbox.addEventListener("click", function (e) {
+            if (e.target === lightbox) {
+              lightbox.classList.remove("active");
+              document.body.style.overflow = "";
+            }
+          });
+
+          const idx = order.indexOf(id);
+          const prevId = order[(idx - 1 + order.length) % order.length];
+          const nextId = order[(idx + 1) % order.length];
+          document.getElementById("pagination").innerHTML =
+            '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
+            '<span class="pagination-label">← Prev</span>' +
+            '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
+            '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
+            '<span class="pagination-label">Next →</span>' +
+            '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
+
+          return;
+        }
+
+        /* Interstellar sci-fi layout */
+        if (id === "interstellar") {
+          const basePath = movie.poster.substring(0, movie.poster.lastIndexOf("/") + 1);
+
+          const hero = document.getElementById("detailHero");
+          hero.className = "interstellar-hero";
+          hero.style.backgroundImage = 'url("' + basePath + '星际穿越-背景.jpg")';
+          hero.innerHTML =
+            '<div class="interstellar-hud-corners"></div>' +
+            '<div class="interstellar-character" style="background-image:url(\'' + basePath + "星际穿越-人物.PNG')\"></div>" +
+            '<div class="interstellar-content">' +
+            '<div class="interstellar-label">NASA · Mission Log · ' + movie.year + "</div>" +
+            '<h1 class="interstellar-title">INTERSTELLAR</h1>' +
+            '<div class="interstellar-divider"></div>' +
+            '<div class="interstellar-meta">' + movie.director + " · " + movie.genre + "</div>" +
+            '<blockquote class="interstellar-quote">' + movie.quote + "</blockquote>" +
+            '<p class="interstellar-desc">' + movie.desc + "</p>" +
+            "</div>" +
+            '<div class="interstellar-data">' +
+            '<div class="interstellar-data-row">GRAVITY <span class="interstellar-data-value">1.3 G</span></div>' +
+            '<div class="interstellar-data-row">TIME DILATION <span class="interstellar-data-value">1 HR = 7 YRS</span></div>' +
+            '<div class="interstellar-data-row">DISTANCE <span class="interstellar-data-value">10 BILLION LY</span></div>' +
+            '<div class="interstellar-data-row">STATUS <span class="interstellar-data-value">ONGOING</span></div>' +
+            "</div>";
+
+          const esc = (s) => s.replace(/"/g, "&quot;");
+          const reviewSci =
+            "诺兰在这部电影里做了一件极其困难的事：他将硬核物理概念——黑洞、虫洞、引力弹弓、时间膨胀、五维空间——全部转化为可感知的情感体验。当库珀在卡冈图雅边缘看着二十三年的留言瀑布般涌来时，相对论不再是公式，而是父女生离死别的重量。汉斯·季默的管风琴像教堂圣咏，又像深空共振，将人类的渺小与爱的永恒并置在同一频段。这部电影最惊人的不是视觉奇观，而是它把科学冷冰冰的面孔彻底融化在了情感之中。";
+          const reviewDim =
+            "许多人质疑结尾五维空间的'机械降神'，却忽略了诺兰埋设的伏笔：书架后的世界不是外星人赠礼，而是未来人类自救的时间闭环。墨菲定律在这里获得了双重意义——'凡有可能发生的事，必然发生'，既是科学信念，也是父亲跨越维度传递信息的执念。当库珀在超立方体中崩溃地捶打书架，试图触碰不同时间切片中的女儿时，电影完成了它最动人的论证：爱是唯一可以穿越维度的矢量。";
+
+          const secondAct = document.createElement("section");
+          secondAct.className = "second-act interstellar-second-act";
+          secondAct.innerHTML =
+            '<div class="cards-grid interstellar-cards">' +
+            '<div class="card" data-type="img" data-src="' + basePath + '04 (504).jpg">' +
+            '<img class="card-img" src="' + basePath + '04 (504).jpg" alt="海报" />' +
+            "</div>" +
+            '<div class="card" data-type="review" data-author="豆瓣 深空旅人" data-full="' + esc(reviewSci) + '">' +
+            '<div class="card-review"><div class="card-review-header">豆瓣 深空旅人</div>' +
+            '<div class="card-review-text">' + reviewSci.substring(0, 260) + "…</div></div>" +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + '28 (513).jpg">' +
+            '<img class="card-img" src="' + basePath + '28 (513).jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + '46 (500).jpg">' +
+            '<img class="card-img" src="' + basePath + '46 (500).jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="review" data-author="豆瓣 维度漫游者" data-full="' + esc(reviewDim) + '">' +
+            '<div class="card-review"><div class="card-review-header">豆瓣 维度漫游者</div>' +
+            '<div class="card-review-text">' + reviewDim.substring(0, 260) + "…</div></div>" +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + '30 (513).jpg">' +
+            '<img class="card-img" src="' + basePath + '30 (513).jpg" alt="剧照" />' +
+            "</div>" +
+            "</div>";
+
+          document.querySelector("footer").before(secondAct);
+
+          const lightbox = document.createElement("div");
+          lightbox.className = "lightbox";
+          lightbox.id = "lightbox";
+          lightbox.innerHTML =
+            '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
+            '<div class="lightbox-content" id="lightboxContent"></div>';
+          document.body.appendChild(lightbox);
+
+          document.querySelectorAll(".card").forEach(function (card) {
+            card.addEventListener("click", function () {
+              const type = card.dataset.type;
+              const content = document.getElementById("lightboxContent");
+              if (type === "img") {
+                content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
+              } else {
+                content.innerHTML =
+                  '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
+                  "<p>" + card.dataset.full + "</p></div>";
+              }
+              lightbox.classList.add("active");
+              document.body.style.overflow = "hidden";
+            });
+          });
+
+          document.getElementById("lightboxClose").addEventListener("click", function () {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = "";
+          });
+
+          lightbox.addEventListener("click", function (e) {
+            if (e.target === lightbox) {
+              lightbox.classList.remove("active");
+              document.body.style.overflow = "";
+            }
+          });
+
+          const idx = order.indexOf(id);
+          const prevId = order[(idx - 1 + order.length) % order.length];
+          const nextId = order[(idx + 1) % order.length];
+          document.getElementById("pagination").innerHTML =
+            '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
+            '<span class="pagination-label">← Prev</span>' +
+            '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
+            '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
+            '<span class="pagination-label">Next →</span>' +
+            '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
+
+          return;
+        }
+
+        /* The Dreamers retro-French layout */
+        if (id === "dreamers") {
+          const basePath = movie.poster.substring(0, movie.poster.lastIndexOf("/") + 1);
+
+          const hero = document.getElementById("detailHero");
+          hero.className = "dreamers-hero";
+          hero.style.backgroundImage = 'url("' + basePath + '戏梦巴黎-背景.jpg")';
+          hero.innerHTML =
+            '<div class="dreamers-content">' +
+            '<div class="dreamers-label">Cinéma · Paris · ' + movie.year + "</div>" +
+            '<h1 class="dreamers-title">The Dreamers</h1>' +
+            '<div class="dreamers-divider"></div>' +
+            '<div class="dreamers-meta">' + movie.director + " · " + movie.genre + "</div>" +
+            '<blockquote class="dreamers-quote">' + movie.quote + "</blockquote>" +
+            '<p class="dreamers-desc">' + movie.desc + "</p>" +
+            "</div>" +
+            '<div class="dreamers-collage">' +
+            '<img src="' + basePath + '人物1.jpg" alt="" style="--rot:-5deg;--top:5%;--left:5%;--w:26vw;--z:1;" />' +
+            '<img src="' + basePath + '人物2.jpg" alt="" style="--rot:6deg;--top:38%;--left:48%;--w:26vw;--z:3;" />' +
+            '<img src="' + basePath + '蜡烛.jpg" alt="" style="--rot:-4deg;--top:58%;--left:12%;--w:26vw;--z:2;" />' +
+            "</div>";
+
+          const esc = (s) => s.replace(/"/g, "&quot;");
+          const reviewCine = "1968年，注定成为人类历史上不可抹去的一笔重彩。在西贡，"春节攻势"打垮了美国大兵；在路易士港，人民宣布民族独立；在伦敦，大游行涌向了美国使馆。"反叛"是1968年的主题词，整个世界都为之沸腾了。而席卷法兰西的这场"五月风暴"无疑可以视为1968年的年度符号。不要看了那些剧照就以为这部电影色情了，也不要因为导演是贝托鲁奇就想入非非了。就是这么一部充斥着裸体影像的电影，甚至不必用"情色"来标签，因为在更大的程度上，它是那些1960年代的文化在今日的回响。对于贝托鲁奇来说，性爱与政治都并非池中之物，理想主义随风飘荡的1960年代的气息才是他想呈现的。";
+          const reviewRev = "二零零四年二月十四日的晚上，THE DREAMERS在多伦多上映，我和两个男孩去看了这部电影。我非常喜爱这部电影的开头。弥漫着六十年代动荡不安的气味和巴黎流动的狂欢氛围。这里的巴黎是六十年代末的巴黎，1968年的巴黎。迷茫而令人激动的六十年代正在结束着，大麻的烟雾正逐渐消散开来，狂欢的盛宴即将谢幕。在巴黎的美国人Matthew与Isabelle和Theo这对姐弟相遇，他们将他带入他们的公寓，他们的生活，他们的巴黎。影片画面非常美，张张明信片般，看得人目眩神迷。这也是Bertolucci片子一贯的特色。";
+
+          const secondAct = document.createElement("section");
+          secondAct.className = "second-act dreamers-second-act";
+          secondAct.innerHTML =
+            '<div class="cards-grid dreamers-cards">' +
+            '<div class="card" data-type="img" data-src="' + basePath + '戏梦巴黎-海报.jpg">' +
+            '<img class="card-img" src="' + basePath + '戏梦巴黎-海报.jpg" alt="海报" />' +
+            "</div>" +
+            '<div class="card" data-type="review" data-author="豆瓣 私享史" data-full="' + esc(reviewCine) + '">' +
+            '<div class="card-review"><div class="card-review-header">豆瓣 私享史</div>' +
+            '<div class="card-review-text">' + reviewCine.substring(0, 260) + "…</div></div>" +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + '03 (1037).jpg">' +
+            '<img class="card-img" src="' + basePath + '03 (1037).jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + '30 (1058).jpg">' +
+            '<img class="card-img" src="' + basePath + '30 (1058).jpg" alt="剧照" />' +
+            "</div>" +
+            '<div class="card" data-type="review" data-author="豆瓣 Reage" data-full="' + esc(reviewRev) + '">' +
+            '<div class="card-review"><div class="card-review-header">豆瓣 Reage</div>' +
+            '<div class="card-review-text">' + reviewRev.substring(0, 260) + "…</div></div>" +
+            "</div>" +
+            '<div class="card" data-type="img" data-src="' + basePath + '65 (710).jpg">' +
+            '<img class="card-img" src="' + basePath + '65 (710).jpg" alt="剧照" />' +
+            "</div>" +
+            "</div>";
+
+          document.querySelector("footer").before(secondAct);
+
+          const lightbox = document.createElement("div");
+          lightbox.className = "lightbox";
+          lightbox.id = "lightbox";
+          lightbox.innerHTML =
+            '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
+            '<div class="lightbox-content" id="lightboxContent"></div>';
+          document.body.appendChild(lightbox);
+
+          document.querySelectorAll(".card").forEach(function (card) {
+            card.addEventListener("click", function () {
+              const type = card.dataset.type;
+              const content = document.getElementById("lightboxContent");
+              if (type === "img") {
+                content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
+              } else {
+                content.innerHTML =
+                  '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
+                  "<p>" + card.dataset.full + "</p></div>";
+              }
+              lightbox.classList.add("active");
+              document.body.style.overflow = "hidden";
+            });
+          });
+
+          document.getElementById("lightboxClose").addEventListener("click", function () {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = "";
+          });
+
+          lightbox.addEventListener("click", function (e) {
+            if (e.target === lightbox) {
+              lightbox.classList.remove("active");
+              document.body.style.overflow = "";
+            }
+          });
+
+          const idx = order.indexOf(id);
+          const prevId = order[(idx - 1 + order.length) % order.length];
+          const nextId = order[(idx + 1) % order.length];
+          document.getElementById("pagination").innerHTML =
+            '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
+            '<span class="pagination-label">← Prev</span>' +
+            '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
+            '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
+            '<span class="pagination-label">Next →</span>' +
+            '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
+
+          return;
+        }
+
+      })();
+    </script>
+  </body>
+</html>
