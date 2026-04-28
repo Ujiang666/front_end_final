@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的电影世界 - 趣味小功能</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- 头部导航 -->
+    <header class="header">
+      <nav class="nav">
+        <div class="nav-container">
+          <a href="index.html" class="nav-logo">我的电影世界</a>
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="index.html">首页</a></li>
+            <li class="nav-item"><a href="classic-movies.html">经典电影</a></li>
+            <li class="nav-item"><a href="actors.html">喜爱的演员</a></li>
+            <li class="nav-item"><a href="movie-rankings.html">电影榜单</a></li>
+            <li class="nav-item active"><a href="test.html">趣味小功能</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="test-page-container">
+      <h2 class="feature-title">趣味小功能</h2>
+
+      <div class="features-grid">
+        <!-- 1. 电影主角性格小测试（5题版） -->
+        <div class="feature-card">
+          <div class="feature-icon">🎬</div>
+          <h3 class="feature-title">电影主角性格小测试</h3>
+
+          <div class="test-container">
+            <div class="question" id="questionText">题目加载中...</div>
+            <div class="answer-btns" id="answerBtns"></div>
+            <div class="test-result" id="testResult"></div>
+            <button
+              class="draw-btn"
+              id="restartBtn"
+              style="display: none; margin: 15px auto 0"
+            >
+              重新测试
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. 电影冷知识每日一推 -->
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h3 class="feature-title">电影冷知识每日一推</h3>
+          <div class="fact-content" id="factContent"></div>
+          <button class="refresh-btn" onclick="refreshFact()">
+            换一条冷知识
+          </button>
+        </div>
+
+        <!-- 3. 电影随机抽签选片器 -->
+        <div class="feature-card">
+          <div class="feature-icon">🎲</div>
+          <h3 class="feature-title">电影随机抽签选片器</h3>
+          <button class="draw-btn" onclick="randomMovie()">
+            🎬 随机抽一部电影
+          </button>
+          <div class="random-result" id="randomResult"></div>
+        </div>
+
+        <!-- 4. 留言投稿推荐电影 -->
+        <div class="feature-card">
+          <div class="feature-icon">✍️</div>
+          <h3 class="feature-title">留言投稿推荐电影</h3>
+          <form class="message-form" id="messageForm">
+            <input type="text" placeholder="你的昵称" id="userName" required />
+            <input
+              type="text"
+              placeholder="推荐电影名"
+              id="movieName"
+              required
+            />
+            <textarea placeholder="推荐理由" id="reason"></textarea>
+            <button type="submit" class="submit-btn">提交推荐</button>
+          </form>
+          <div class="message-list" id="messageList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p class="copyright">© 2026 我的电影世界 版权所有</p>
+          <div class="contact">
+            <p>联系邮箱：contact@mymovieworld.com</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+  </body>
+</html>
