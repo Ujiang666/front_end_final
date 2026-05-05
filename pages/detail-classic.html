@@ -4,26 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>影片详情 | 暗房 CINEMA</title>
-    <link rel="stylesheet" href="../css/my-detail.css" />
+    <link rel="stylesheet" href="../css/detail-classic.css" />
   </head>
   <body>
     <div class="noise-overlay"></div>
 
     <nav id="detailNav">
+      <a href="index.html" class="site-logo">暗房CINEMA</a>
       <div id="pagination"></div>
       <ul class="nav-links">
         <li><a href="index.html">首页</a></li>
-        <li><a href="classic-movies.html">长廊</a></li>
-        <li><a href="login.html">登录</a></li>
-        <li><a href="contact.html">联系</a></li>
+        <li><a href="actors.html">喜爱的演员</a></li>
+        <li><a href="movie-rankings.html">电影榜单</a></li>
+        <li><a href="test.html">趣味小功能</a></li>
       </ul>
     </nav>
 
     <section class="detail-hero" id="detailHero"></section>
 
     <footer>
-      <div>© 2025 暗房 CINEMA</div>
-    </footer>
+    <div class="footer-content">
+      <span>© 2026 暗房CINEMA 版权所有</span>
+      <span>联系邮箱：2782938791@qq.com</span>
+    </div>
+  </footer>
 
     <script>
       (function () {
@@ -32,99 +36,48 @@
         const movies = {
           interstellar: {
             title: "星际穿越",
-            enTitle: "Interstellar",
             year: "2014",
             director: "克里斯托弗·诺兰",
-            country: "美国 / 英国 / 加拿大",
             genre: "科幻 / 冒险 / 剧情",
-            duration: "169 分钟",
-            rating: "9.4",
             quote: "爱是唯一可以超越时间与空间的事物。",
             desc: "在不久的将来，地球农作物因枯萎病而大面积减产，人类面临灭绝危机。前 NASA 飞行员库珀意外发现 NASA 秘密基地，并被招募执行一项穿越虫洞、寻找新家园的星际任务。在广袤宇宙中，他与女儿墨菲之间的爱成为跨越维度的唯一纽带。影片以硬科幻为骨架，以父女情感为灵魂，将黑洞、五维空间与时间膨胀等概念化为震撼的视觉与情感体验。",
             poster: "../images/电影截图/星际穿越/04 (504).jpg",
-            screenshots: [
-              "22 (514).jpg",
-              "28 (513).jpg",
-              "29 (513).jpg",
-              "30 (513).jpg",
-              "33 (512).jpg",
-              "46 (500).jpg",
-            ],
           },
           dreamers: {
             title: "戏梦巴黎",
-            enTitle: "The Dreamers",
             year: "2003",
             director: "贝纳尔多·贝托鲁奇",
-            country: "法国 / 英国 / 意大利",
             genre: "剧情 / 爱情",
-            duration: "115 分钟",
-            rating: "8.1",
             quote: "在电影里，我们做梦；在梦里，我们活着。",
             desc: "1968 年，巴黎学运前夕。美国留学生马修在巴黎结识了一对孪生兄妹伊莎贝拉和泰奥。三人在封闭的公寓中，以电影为媒介，模仿经典片段、玩禁忌游戏，在艺术与欲望的边缘试探。贝托鲁奇以迷影情怀编织了一曲关于青春、革命与身份的挽歌，让 1968 年的理想主义热血与私密房间的体温相互交织。",
             poster: "../images/电影截图/戏梦巴黎/08 (1038).jpg",
-            screenshots: [
-              "03 (1037).jpg",
-              "30 (1058).jpg",
-              "65 (710).jpg",
-              "人物1.jpg",
-              "人物2.jpg",
-            ],
           },
           americanpsycho: {
             title: "美国精神病人",
-            enTitle: "American Psycho",
             year: "2000",
             director: "玛丽·哈伦",
-            country: "美国",
             genre: "剧情 / 犯罪 / 惊悚",
-            duration: "102 分钟",
-            rating: "8.0",
             quote: "表面之下，没有灵魂。",
             desc: "1987 年的纽约华尔街，投资精英帕特里克·贝特曼拥有完美的外表、光鲜的职业和空洞的内心。在物质过剩与消费主义的包裹下，他对名牌名片、高级餐厅的 obsession 逐渐演变为难以抑制的暴力冲动。玛丽·哈伦以冷峻的黑色幽默解构了 80 年代美国梦的阴暗面，让贝特曼成为资本主义精神危机的极端化身。",
             poster: "../images/电影截图/美国精神病人/08 (71).jpg",
-            screenshots: [
-              "08 (71).jpg",
-              "24 (72).jpg",
-              "27 (72).jpg",
-            ],
           },
           orlando: {
             title: "奥兰多",
-            enTitle: "Orlando",
             year: "1992",
             director: "莎莉·波特",
-            country: "英国 / 俄罗斯 / 法国 / 意大利 / 荷兰",
             genre: "剧情 / 爱情 / 奇幻",
-            duration: "94 分钟",
-            rating: "8.2",
             quote: "不变的是灵魂，变化的是身体。",
             desc: "改编自弗吉尼亚·伍尔夫同名小说。贵族青年奥兰多因得到伊丽莎白女王的宠幸而获得庄园与不老的承诺。四百年间，他经历了爱情、诗歌、政治与战争，在一夜长眠后醒来变为女性，继续以新的性别身份漫游世界。莎莉·波特以华丽的视觉语言与蒂尔达·斯文顿的中性气质，探讨了性别、身份与时间的流动性。",
             poster: "../images/电影截图/奥兰多/奥兰多-电影海报.jpg",
-            screenshots: [
-              "orlando018.jpg",
-              "orlando020.jpg",
-              "orlando023.jpg",
-            ],
           },
           thelma: {
             title: "末路狂花",
-            enTitle: "Thelma & Louise",
             year: "1991",
             director: "雷德利·斯科特",
-            country: "美国 / 法国",
             genre: "剧情 / 犯罪 / 惊悚",
-            duration: "130 分钟",
-            rating: "8.9",
             quote: "让我们 keep going。",
             desc: "塞尔玛和路易斯是两个要好的朋友，她们决定周末外出旅行散心。然而一个小小的意外却让她们的逃亡之旅变成了一场无法回头的公路反叛。面对警察的追捕与男性的压迫，两人在荒漠公路上越飞越高。影片以女性视角审视父权社会，成为女性主义电影史上最震撼的篇章之一。",
             poster: "../images/电影截图/末路狂花/末路狂花-海报.jpg",
-            screenshots: [
-              "Thelma__Louise_51.jpg",
-              "Thelma__Louise_54.jpg",
-              "Thelma__Louise_55.jpg",
-              "Thelma__Louise_65.jpg",
-            ],
           },
         };
 
@@ -145,7 +98,7 @@
 
         if (!movie) {
           document.body.innerHTML =
-            '<div style="padding:4rem;color:#f0f0f0;text-align:center;font-family:sans-serif;"><h1 style="font-size:3rem;margin-bottom:1rem;">影片未找到</h1><a href="classic-movies.html" style="color:#ff0040;">返回长廊</a></div>';
+            '<div style="padding:4rem;color:#f0f0f0;text-align:center;font-family:sans-serif;"><h1 style="font-size:3rem;margin-bottom:1rem;">影片未找到</h1><a href="index.html" style="color:#ff0040;">返回首页</a></div>';
           return;
         }
 

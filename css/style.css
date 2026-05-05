@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+SC:wght@400;700;900&family=Oranienbaum&display=swap');
+
 /* 全局样式 */
 * {
   margin: 0;
@@ -6,13 +8,15 @@
 }
 
 body {
-  font-family: "Arial", sans-serif;
+  font-family: 'Noto Serif SC', 'Playfair Display', Georgia, serif;
   background-color: #111;
   color: #fff;
   line-height: 1.6;
   font-size: 14px; /* 全局字体大小减小一个层级 */
-  /* 背景图片设置 */
-  background-image: url("../images/backgrounds/background.jpg");
+  /* 背景图片设置：渐变遮罩 + 背景图 */
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.88) 100%),
+    url("../images/backgrounds/background.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -42,68 +46,156 @@ body {
   border-radius: 5px;
 }
 
-/* 确保头部导航和其他固定元素的背景 */
-.header {
-  background: rgba(0, 0, 0, 0.95);
-}
-
 /* 确保筛选区域和电影卡片的背景 */
 .filter-section,
 .movie-card,
 .ranking-item,
-.actor-profile,
-.team-section,
-.footer {
+.actor-profile {
   background: rgba(0, 0, 0, 0.85);
 }
 
 /* 头部导航 */
-.header {
+#detailNav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.9);
-  padding: 15px 0;
-}
-
-.nav-container {
+  padding: 1.5rem 3vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: rgba(10, 10, 10, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(214, 40, 40, 0.08);
 }
 
-.nav-logo {
-  font-size: 20px; /* 字体大小减小一个层级 */
-  font-weight: bold;
+.site-logo {
+  font-family: 'Oranienbaum', serif;
+  font-size: 1.2rem;
   color: #e50914;
   text-decoration: none;
+  letter-spacing: 0.1em;
 }
 
-.nav-menu {
+.nav-links {
   display: flex;
+  gap: 2.5rem;
   list-style: none;
 }
 
-.nav-item {
-  margin-left: 20px;
-}
-
-.nav-item a {
-  color: #fff;
+.nav-links a {
+  color: #f0f0f0;
   text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
 }
 
-.nav-item a:hover {
-  color: #e50914;
+.nav-links a:hover {
+  opacity: 1;
 }
 
-.nav-item.active a {
-  color: #e50914;
-  font-weight: bold;
+.nav-links .active a {
+  opacity: 1;
+}
+
+/* 登录 */
+.login-section {
+  padding: 110px 0 40px;
+}
+
+.login-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 35px;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: 8px;
+  border: 1px solid rgba(214, 40, 40, 0.15);
+}
+
+.login-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 28px;
+  color: #f0f0f0;
+  letter-spacing: 0.15em;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  color: #999;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.form-group input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 0;
+  color: #f0f0f0;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.form-group input:focus {
+  border-bottom-color: #e50914;
+}
+
+.login-btn {
+  background: #e50914;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-top: 8px;
+  transition: background 0.3s;
+  font-family: inherit;
+}
+
+.login-btn:hover {
+  background: #c40610;
+}
+
+.login-message {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+  color: #999;
+}
+
+.login-message.error {
+  color: #ff4d4d;
+}
+
+.login-message.success {
+  color: #4caf50;
 }
 
 /* 轮播图 */
@@ -192,7 +284,7 @@ body {
 /* 小组介绍 */
 .team-section {
   padding: 60px 0;
-  background: #111;
+  background: transparent;
 }
 
 .team-info {
@@ -216,15 +308,29 @@ body {
 .team-members {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 50px;
   margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .member {
-  background: #222;
-  padding: 15px 25px;
-  border-radius: 5px;
-  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.member-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #000;
+}
+
+.member-name {
+  font-size: 14px;
+  color: #fff;
 }
 
 /* 热门电影 */
@@ -315,6 +421,10 @@ body {
   padding: 15px;
 }
 
+.classic-movies-section .movie-title {
+  padding: 0;
+}
+
 .classic-movies-section .movie-meta {
   display: flex;
   gap: 15px;
@@ -325,6 +435,7 @@ body {
 
 .classic-movies-section .movie-description {
   margin-top: 15px;
+  padding: 0;
 }
 
 .classic-movies-section .description-text {
@@ -1034,49 +1145,29 @@ body {
 }
 
 /* 页脚 */
-.footer {
-  background: #111;
-  padding: 40px 0;
-  margin-top: 60px;
+footer {
+  padding: 3rem 5vw;
+  border-top: 1px solid rgba(214, 40, 40, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #666;
+  letter-spacing: 0.1em;
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.copyright {
-  font-size: 14px;
-  color: #999;
-}
-
-.contact p {
-  font-size: 14px;
-  color: #999;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .nav-menu {
-    flex-direction: column;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    padding: 20px;
-    display: none;
-  }
-
-  .nav-menu.active {
-    display: flex;
-  }
-
-  .nav-item {
-    margin: 10px 0;
-  }
-
   .carousel {
     height: 400px;
   }
@@ -1160,6 +1251,11 @@ body {
 
   .filter-btn {
     margin-bottom: 5px;
+  }
+
+  .member-avatar {
+    width: 100px;
+    height: 100px;
   }
 }
 

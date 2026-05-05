@@ -3,25 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>我的电影世界 - 首页</title>
+    <title>暗房CINEMA - 首页</title>
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
     <!-- 头部导航 -->
-    <header class="header">
-      <nav class="nav">
-        <div class="nav-container">
-          <a href="index.html" class="nav-logo">我的电影世界</a>
-          <ul class="nav-menu">
-            <li class="nav-item active"><a href="index.html">首页</a></li>
-            <li class="nav-item"><a href="classic-movies.html">经典电影</a></li>
-            <li class="nav-item"><a href="actors.html">喜爱的演员</a></li>
-            <li class="nav-item"><a href="movie-rankings.html">电影榜单</a></li>
-            <li class="nav-item"><a href="test.html">趣味小功能</a></li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+        <nav id="detailNav">
+      <a href="index.html" class="site-logo">暗房CINEMA</a>
+      <ul class="nav-links">
+            <li class="active"><a href="index.html">首页</a></li>
+            <li><a href="actors.html">喜爱的演员</a></li>
+            <li><a href="movie-rankings.html">电影榜单</a></li>
+            <li><a href="test.html">趣味小功能</a></li>
+      </ul>
+    </nav>
+
+    <!-- 登录 -->
+    <section class="login-section">
+      <div class="login-container">
+        <h2 class="login-title">加入暗房</h2>
+        <form class="login-form" id="loginForm">
+          <div class="form-group">
+            <label for="username">用户名</label>
+            <input type="text" id="username" name="username" placeholder="请输入用户名" />
+          </div>
+          <div class="form-group">
+            <label for="phone">电话</label>
+            <input type="tel" id="phone" name="phone" placeholder="请输入手机号码" />
+          </div>
+          <div class="form-group">
+            <label for="email">邮箱</label>
+            <input type="email" id="email" name="email" placeholder="请输入邮箱地址" />
+          </div>
+          <button type="submit" class="login-btn">登 录</button>
+          <p class="login-message" id="loginMessage"></p>
+        </form>
+      </div>
+    </section>
 
     <!-- 轮播图 -->
     <section class="carousel">
@@ -57,84 +75,200 @@
             我们是一群热爱电影的学生，致力于分享优质的电影内容和观影体验。
           </p>
           <div class="team-members">
-            <div class="member">成员1</div>
-            <div class="member">成员2</div>
-            <div class="member">成员3</div>
-            <div class="member">成员4</div>
+            <div class="member">
+              <img src="../images/developer/Urie.jpg" alt="Urie" class="member-avatar" />
+              <span class="member-name">Urie</span>
+            </div>
+            <div class="member">
+              <img src="../images/developer/WuLoong666.jpg" alt="WuLoong666" class="member-avatar" />
+              <span class="member-name">WuLoong666</span>
+            </div>
+            <div class="member">
+              <img src="../images/developer/lyt8396.png" alt="lyt8396" class="member-avatar" />
+              <span class="member-name">lyt8396</span>
+            </div>
+            <div class="member">
+              <img src="../images/developer/Devonaokii.png" alt="Devonaokii" class="member-avatar" />
+              <span class="member-name">Devonaokii</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 热门电影 -->
-    <section class="movies-section">
+    <!-- 经典电影 -->
+    <section class="classic-movies-section">
       <div class="container">
-        <h2 class="section-title">热门电影</h2>
-        <div class="movies-grid">
-          <div class="movie-card">
-            <img src="../images/movie1.jpg" alt="电影海报" />
-            <h3 class="movie-title">电影名称1</h3>
-            <div class="movie-rating">9.0</div>
-            <p class="movie-description">
-              电影简介1，限制两行显示，超出部分隐藏。
-            </p>
+        <h2 class="section-title">经典电影</h2>
+        <div class="movies-container">
+          <div
+            class="movie-card"
+            onclick="location.href = 'detail-classic.html?id=interstellar'"
+            style="cursor: pointer"
+          >
+            <img
+              src="../images/电影截图/星际穿越/04 (504).jpg"
+              alt="星际穿越海报"
+            />
+            <div class="movie-info">
+              <h3 class="movie-title">Interstellar 星际穿越</h3>
+              <div class="movie-meta">
+                <span class="director">导演：克里斯托弗·诺兰</span>
+                <span class="year">2014</span>
+                <span class="rating">9.4</span>
+              </div>
+              <div class="movie-description">
+                <p class="description-text">
+                  在不久的将来，地球农作物因枯萎病而大面积减产，人类面临灭绝危机。前
+                  NASA 飞行员库珀意外发现 NASA
+                  秘密基地，并被招募执行一项穿越虫洞、寻找新家园的星际任务。在广袤宇宙中，他与女儿墨菲之间的爱成为跨越维度的唯一纽带。
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="movie-card">
-            <img src="../images/movie2.jpg" alt="电影海报" />
-            <h3 class="movie-title">电影名称2</h3>
-            <div class="movie-rating">8.5</div>
-            <p class="movie-description">
-              电影简介2，限制两行显示，超出部分隐藏。
-            </p>
+          <div
+            class="movie-card"
+            onclick="location.href = 'detail-classic.html?id=dreamers'"
+            style="cursor: pointer"
+          >
+            <img
+              src="../images/电影截图/戏梦巴黎/戏梦巴黎-海报.jpg"
+              alt="戏梦巴黎海报"
+            />
+            <div class="movie-info">
+              <h3 class="movie-title">The Dreamers 戏梦巴黎</h3>
+              <div class="movie-meta">
+                <span class="director">导演：贝纳尔多·贝托鲁奇</span>
+                <span class="year">2003</span>
+                <span class="rating">8.1</span>
+              </div>
+              <div class="movie-description">
+                <p class="description-text">
+                  1968
+                  年，巴黎学运前夕。美国留学生马修在巴黎结识了一对孪生兄妹伊莎贝拉和泰奥。三人在封闭的公寓中，以电影为媒介，模仿经典片段、玩禁忌游戏，在艺术与欲望的边缘试探。
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="movie-card">
-            <img src="../images/movie3.jpg" alt="电影海报" />
-            <h3 class="movie-title">电影名称3</h3>
-            <div class="movie-rating">8.8</div>
-            <p class="movie-description">
-              电影简介3，限制两行显示，超出部分隐藏。
-            </p>
+          <div
+            class="movie-card"
+            onclick="location.href = 'detail-classic.html?id=americanpsycho'"
+            style="cursor: pointer"
+          >
+            <img
+              src="../images/电影截图/美国精神病人/美国精神病人-海报.jpg"
+              alt="美国精神病人海报"
+            />
+            <div class="movie-info">
+              <h3 class="movie-title">American Psycho 美国精神病人</h3>
+              <div class="movie-meta">
+                <span class="director">导演：玛丽·哈伦</span>
+                <span class="year">2000</span>
+                <span class="rating">8.0</span>
+              </div>
+              <div class="movie-description">
+                <p class="description-text">
+                  1987
+                  年的纽约华尔街，投资精英帕特里克·贝特曼拥有完美的外表、光鲜的职业和空洞的内心。玛丽·哈伦以冷峻的黑色幽默解构了
+                  80
+                  年代美国梦的阴暗面，让贝特曼成为资本主义精神危机的极端化身。
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="movie-card">
-            <img src="../images/movie4.jpg" alt="电影海报" />
-            <h3 class="movie-title">电影名称4</h3>
-            <div class="movie-rating">9.2</div>
-            <p class="movie-description">
-              电影简介4，限制两行显示，超出部分隐藏。
-            </p>
+          <div
+            class="movie-card"
+            onclick="location.href = 'detail-classic.html?id=orlando'"
+            style="cursor: pointer"
+          >
+            <img
+              src="../images/电影截图/奥兰多/奥兰多-电影海报.jpg"
+              alt="奥兰多海报"
+            />
+            <div class="movie-info">
+              <h3 class="movie-title">Orlando 奥兰多</h3>
+              <div class="movie-meta">
+                <span class="director">导演：莎莉·波特</span>
+                <span class="year">1992</span>
+                <span class="rating">8.2</span>
+              </div>
+              <div class="movie-description">
+                <p class="description-text">
+                  改编自弗吉尼亚·伍尔夫同名小说。贵族青年奥兰多四百年间经历爱情、诗歌、政治与战争，在一夜长眠后醒来变为女性。莎莉·波特探讨了性别、身份与时间的流动性。
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="movie-card">
-            <img src="../images/movie5.jpg" alt="电影海报" />
-            <h3 class="movie-title">电影名称5</h3>
-            <div class="movie-rating">8.7</div>
-            <p class="movie-description">
-              电影简介5，限制两行显示，超出部分隐藏。
-            </p>
-          </div>
-          <div class="movie-card">
-            <img src="../images/movie6.jpg" alt="电影海报" />
-            <h3 class="movie-title">电影名称6</h3>
-            <div class="movie-rating">8.9</div>
-            <p class="movie-description">
-              电影简介6，限制两行显示，超出部分隐藏。
-            </p>
+          <div
+            class="movie-card"
+            onclick="location.href = 'detail-classic.html?id=thelma'"
+            style="cursor: pointer"
+          >
+            <img
+              src="../images/电影截图/末路狂花/末路狂花-海报.jpg"
+              alt="末路狂花海报"
+            />
+            <div class="movie-info">
+              <h3 class="movie-title">Thelma &amp; Louise 末路狂花</h3>
+              <div class="movie-meta">
+                <span class="director">导演：雷德利·斯科特</span>
+                <span class="year">1991</span>
+                <span class="rating">8.9</span>
+              </div>
+              <div class="movie-description">
+                <p class="description-text">
+                  塞尔玛和路易斯决定周末外出旅行，一个意外让逃亡之旅变成无法回头的公路反叛。影片以女性视角审视父权社会，成为女性主义电影史上最震撼的篇章之一。
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- 页脚 -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <p class="copyright">© 2026 我的电影世界 版权所有</p>
-          <div class="contact">
-            <p>联系邮箱：contact@mymovieworld.com</p>
-          </div>
-        </div>
+        <footer>
+      <div class="footer-content">
+        <span>© 2026 暗房CINEMA 版权所有</span>
+        <span>联系邮箱：2782938791@qq.com</span>
       </div>
     </footer>
 
+    <script>
+      (function () {
+        "use strict";
+        const form = document.getElementById("loginForm");
+        const msg = document.getElementById("loginMessage");
+
+        function showMessage(text, type) {
+          msg.textContent = text;
+          msg.className = "login-message " + type;
+        }
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = form.username.value.trim();
+          const phone = form.phone.value.trim();
+          const email = form.email.value.trim();
+
+          if (name.length < 2 || name.length > 20) {
+            showMessage("用户名需在 2-20 个字符之间", "error");
+            return;
+          }
+          if (!/^1[3-9]\d{9}$/.test(phone)) {
+            showMessage("请输入有效的 11 位手机号码", "error");
+            return;
+          }
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showMessage("请输入有效的邮箱地址", "error");
+            return;
+          }
+
+          showMessage("验证通过！欢迎，" + name, "success");
+          form.reset();
+        });
+      })();
+    </script>
     <script src="../js/script.js"></script>
   </body>
 </html>

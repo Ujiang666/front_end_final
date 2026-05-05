@@ -46,20 +46,18 @@ nav {
   border-bottom: 1px solid rgba(214, 40, 40, 0.08);
 }
 
-.logo {
-  font-family: 'Oranienbaum', serif;
-  font-size: 1.2rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  color: var(--text);
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
 .nav-links {
   display: flex;
   gap: 2.5rem;
   list-style: none;
+}
+
+.site-logo {
+  font-family: 'Oranienbaum', serif;
+  font-size: 1.2rem;
+  color: #e50914;
+  text-decoration: none;
+  letter-spacing: 0.1em;
 }
 
 .nav-links a {
@@ -151,6 +149,16 @@ footer {
   font-size: 0.75rem;
   color: var(--text-dim);
   letter-spacing: 0.1em;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 /* ===== Noise Overlay ===== */
