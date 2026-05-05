@@ -149,14 +149,15 @@
           return;
         }
 
+        const basePath = movie.poster.substring(
+          0,
+          movie.poster.lastIndexOf("/") + 1,
+        );
+        const esc = (s) => s.replace(/"/g, "&quot;");
+        const hero = document.getElementById("detailHero");
+
         /* American Psycho special layout */
         if (id === "americanpsycho") {
-          const basePath = movie.poster.substring(
-            0,
-            movie.poster.lastIndexOf("/") + 1,
-          );
-
-          const hero = document.getElementById("detailHero");
           hero.className = "psycho-hero";
           hero.style.backgroundImage =
             'url("' + basePath + '美国精神病人-背景.jpg")';
@@ -176,7 +177,6 @@
             '<div class="psycho-desc">' + movie.desc + "</div>" +
             "</div>";
 
-          const esc = (s) => s.replace(/"/g, "&quot;");
           const reviewMiao =
             "Christina Bale的表演真真好。再没有比这更有魅力的变态杀人狂了。他的主人公叫Patrick Bateman，哈佛大学毕业，进而深造于哈佛大学商学院，现27岁，是Wall Street上某投行Pierce & Pierce的Vice President。他每天给自己做面膜，健身，用冰袋敷脸使皮肤有弹性，用名目繁多的洗浴用品。出入高级酒店及夜总会。有高贵气息的变态人士当然要不停的杀人才有看头。于是这个片子说恶心也是很恶心呢。高级公寓里血淋淋的女孩尸体成排，冰箱里人头和甜品共存。杀人的器具有刀枪，更有电锯和斧子。然而说好玩也是很好玩的。Bateman杀人是出于不可满足的欲望，以及他无法摆脱的绝望和伤痛。他的绝望和伤痛来源于订不到某高级餐厅位子的尴尬，或者看到同僚印制比他精美的名片时的嫉妒。黑色幽默是这片子的一个特点。Bateman出于嫉妒杀了同僚Paul Allen，然后去Paul家里收拾行装，伪装成Paul去伦敦出差，他发现Paul的公寓地段比他的更好，于是大受刺激。他的言行举止充满优雅，他的微笑令人无法抗拒。这片子有趣就有趣在结尾——有了那样的结尾，你开始怀疑他到底有没有杀过那些人，你开始怀疑那个社会里的每一个人，你甚至开始同情Patrick Bateman。这不是一个单纯的杀人故事，它涵盖了对于80年代美国社会里精英生活的态度：对道德沦丧的拜金世界的否定和批判，作者别出心裁，从这么个极端切入点讲他的故事。";
           const reviewBill =
@@ -211,53 +211,6 @@
 
           document.querySelector("footer").before(secondAct);
 
-          const lightbox = document.createElement("div");
-          lightbox.className = "lightbox";
-          lightbox.id = "lightbox";
-          lightbox.innerHTML =
-            '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
-            '<div class="lightbox-content" id="lightboxContent"></div>';
-          document.body.appendChild(lightbox);
-
-          document.querySelectorAll(".card").forEach(function (card) {
-            card.addEventListener("click", function () {
-              const type = card.dataset.type;
-              const content = document.getElementById("lightboxContent");
-              if (type === "img") {
-                content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
-              } else {
-                content.innerHTML =
-                  '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
-                  "<p>" + card.dataset.full + "</p></div>";
-              }
-              lightbox.classList.add("active");
-              document.body.style.overflow = "hidden";
-            });
-          });
-
-          document.getElementById("lightboxClose").addEventListener("click", function () {
-            lightbox.classList.remove("active");
-            document.body.style.overflow = "";
-          });
-
-          lightbox.addEventListener("click", function (e) {
-            if (e.target === lightbox) {
-              lightbox.classList.remove("active");
-              document.body.style.overflow = "";
-            }
-          });
-
-          const idx = order.indexOf(id);
-          const prevId = order[(idx - 1 + order.length) % order.length];
-          const nextId = order[(idx + 1) % order.length];
-          document.getElementById("pagination").innerHTML =
-            '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
-            '<span class="pagination-label">← Prev</span>' +
-            '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
-            '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
-            '<span class="pagination-label">Next →</span>' +
-            '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
-
           (function () {
             var section = document.querySelector(".second-act");
             var blood = section.querySelector(".second-act-blood");
@@ -272,15 +225,7 @@
             window.addEventListener("scroll", update, { passive: true });
             update();
           })();
-
-          return;
-        }
-
-        /* Orlando special layout */
-        if (id === "orlando") {
-          const basePath = movie.poster.substring(0, movie.poster.lastIndexOf("/") + 1);
-
-          const hero = document.getElementById("detailHero");
+        } else if (id === "orlando") {
           hero.className = "orlando-hero";
           hero.style.backgroundImage = 'url("' + basePath + '奥兰多-背景.jpg")';
           hero.innerHTML =
@@ -295,7 +240,6 @@
             '<p class="orlando-desc">' + movie.desc + "</p>" +
             "</div>";
 
-          const esc = (s) => s.replace(/"/g, "&quot;");
           const reviewManchild =
             '首先，从文学改编到电影剧作，如果我们要把作为艺术的电影摆在跟文学不相上下的地位上，把伍尔夫的大部分小说改编成电影看起来就不是什么好主意，这一部电影同样也不能例外。所以，这里我的结论是：这部电影远远没有完成小说的任务，我只能说它的成功之处在于把玩风格，并且迷惑到了大家（特别是在开场的几个极其唯美的镜头，让我也对这部电影充满期待），但是借助风格所要表达的内涵相比与小说的确大打折扣。胡子老师在他那门搞怪的"电影中的世界文学"第一堂课上提到过一种关于小说和电影职能转换的通俗理论：因为电影这门被争论的"艺术"的兴起，传统的古典小说的叙事职能可以说轻而易举的被电影替代。而二十世纪的小说需要另寻出路，摆脱传统的经典叙事模式并把叙事职能转交给了电影这门艺术。依照这样的观点来看，伍尔夫绝大部分小说并不属于传统的经典叙事，而是为大家熟知的"意识流"笔法，在叙事技巧上也远远超出了当时的常规。所以，伍尔夫的小说本身就是叙事学研究的丰富文本，这本身给电影改编带来了巨大的难度，也就是说，这样的文学作品实际上是不适合，或者说不大容易改编成电影作品的。';
           const reviewBaijing =
@@ -329,62 +273,7 @@
             "</div>";
 
           document.querySelector("footer").before(secondAct);
-
-          const lightbox = document.createElement("div");
-          lightbox.className = "lightbox";
-          lightbox.id = "lightbox";
-          lightbox.innerHTML =
-            '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
-            '<div class="lightbox-content" id="lightboxContent"></div>';
-          document.body.appendChild(lightbox);
-
-          document.querySelectorAll(".card").forEach(function (card) {
-            card.addEventListener("click", function () {
-              const type = card.dataset.type;
-              const content = document.getElementById("lightboxContent");
-              if (type === "img") {
-                content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
-              } else {
-                content.innerHTML =
-                  '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
-                  "<p>" + card.dataset.full + "</p></div>";
-              }
-              lightbox.classList.add("active");
-              document.body.style.overflow = "hidden";
-            });
-          });
-
-          document.getElementById("lightboxClose").addEventListener("click", function () {
-            lightbox.classList.remove("active");
-            document.body.style.overflow = "";
-          });
-
-          lightbox.addEventListener("click", function (e) {
-            if (e.target === lightbox) {
-              lightbox.classList.remove("active");
-              document.body.style.overflow = "";
-            }
-          });
-
-          const idx = order.indexOf(id);
-          const prevId = order[(idx - 1 + order.length) % order.length];
-          const nextId = order[(idx + 1) % order.length];
-          document.getElementById("pagination").innerHTML =
-            '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
-            '<span class="pagination-label">← Prev</span>' +
-            '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
-            '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
-            '<span class="pagination-label">Next →</span>' +
-            '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
-
-          return;
-        }
-
-        /* Thelma & Louise special layout */
-        if (id === "thelma") {
-          const basePath = movie.poster.substring(0, movie.poster.lastIndexOf("/") + 1);
-
-          const hero = document.getElementById("detailHero");
+        } else if (id === "thelma") {
           hero.className = "thelma-hero";
           hero.style.backgroundImage = 'url("' + basePath + '末路狂花-背景.jpg")';
           hero.innerHTML =
@@ -398,7 +287,6 @@
             '<p class="thelma-desc">' + movie.desc + "</p>" +
             "</div>";
 
-          const esc = (s) => s.replace(/"/g, "&quot;");
           const reviewEmma =
             "Thelma哭求着说她不愿意，Louise濒临崩溃地怒吼——当女人象这样哭泣的时候，她确实是不愿意——这些，都没换到那个十秒钟后倒在枪口下的男人认真地对待。是什么，给了他这样盲目无赖的自信？一个人，当他/她不被作为一个具有平等对话能力的人的时候，要怎样才能让对方认同，他/她口中吐出的句子原来也有要表达的意义？很多人给这部电影打上女权的标签，如果女权是需要女人争取的、身为人的最基本的权利的简称，那么它确实是女权的。但其实不止女人，每个人都有可能会被迫经历这样的一刻，你说的话被听而不闻，你作的事被视而不见，你所有的努力和解释在未摸到对方的成见的衣角的时候便已灰飞烟灭。那个时候，你怎么办？";
           const reviewTizi =
@@ -431,62 +319,7 @@
             "</div>";
 
           document.querySelector("footer").before(secondAct);
-
-          const lightbox = document.createElement("div");
-          lightbox.className = "lightbox";
-          lightbox.id = "lightbox";
-          lightbox.innerHTML =
-            '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
-            '<div class="lightbox-content" id="lightboxContent"></div>';
-          document.body.appendChild(lightbox);
-
-          document.querySelectorAll(".card").forEach(function (card) {
-            card.addEventListener("click", function () {
-              const type = card.dataset.type;
-              const content = document.getElementById("lightboxContent");
-              if (type === "img") {
-                content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
-              } else {
-                content.innerHTML =
-                  '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
-                  "<p>" + card.dataset.full + "</p></div>";
-              }
-              lightbox.classList.add("active");
-              document.body.style.overflow = "hidden";
-            });
-          });
-
-          document.getElementById("lightboxClose").addEventListener("click", function () {
-            lightbox.classList.remove("active");
-            document.body.style.overflow = "";
-          });
-
-          lightbox.addEventListener("click", function (e) {
-            if (e.target === lightbox) {
-              lightbox.classList.remove("active");
-              document.body.style.overflow = "";
-            }
-          });
-
-          const idx = order.indexOf(id);
-          const prevId = order[(idx - 1 + order.length) % order.length];
-          const nextId = order[(idx + 1) % order.length];
-          document.getElementById("pagination").innerHTML =
-            '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
-            '<span class="pagination-label">← Prev</span>' +
-            '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
-            '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
-            '<span class="pagination-label">Next →</span>' +
-            '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
-
-          return;
-        }
-
-        /* Interstellar sci-fi layout */
-        if (id === "interstellar") {
-          const basePath = movie.poster.substring(0, movie.poster.lastIndexOf("/") + 1);
-
-          const hero = document.getElementById("detailHero");
+        } else if (id === "interstellar") {
           hero.className = "interstellar-hero";
           hero.style.backgroundImage = 'url("' + basePath + '星际穿越-背景.jpg")';
           hero.innerHTML =
@@ -507,7 +340,6 @@
             '<div class="interstellar-data-row">STATUS <span class="interstellar-data-value">ONGOING</span></div>' +
             "</div>";
 
-          const esc = (s) => s.replace(/"/g, "&quot;");
           const reviewSci =
             "诺兰在这部电影里做了一件极其困难的事：他将硬核物理概念——黑洞、虫洞、引力弹弓、时间膨胀、五维空间——全部转化为可感知的情感体验。当库珀在卡冈图雅边缘看着二十三年的留言瀑布般涌来时，相对论不再是公式，而是父女生离死别的重量。汉斯·季默的管风琴像教堂圣咏，又像深空共振，将人类的渺小与爱的永恒并置在同一频段。这部电影最惊人的不是视觉奇观，而是它把科学冷冰冰的面孔彻底融化在了情感之中。";
           const reviewDim =
@@ -540,62 +372,7 @@
             "</div>";
 
           document.querySelector("footer").before(secondAct);
-
-          const lightbox = document.createElement("div");
-          lightbox.className = "lightbox";
-          lightbox.id = "lightbox";
-          lightbox.innerHTML =
-            '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
-            '<div class="lightbox-content" id="lightboxContent"></div>';
-          document.body.appendChild(lightbox);
-
-          document.querySelectorAll(".card").forEach(function (card) {
-            card.addEventListener("click", function () {
-              const type = card.dataset.type;
-              const content = document.getElementById("lightboxContent");
-              if (type === "img") {
-                content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
-              } else {
-                content.innerHTML =
-                  '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
-                  "<p>" + card.dataset.full + "</p></div>";
-              }
-              lightbox.classList.add("active");
-              document.body.style.overflow = "hidden";
-            });
-          });
-
-          document.getElementById("lightboxClose").addEventListener("click", function () {
-            lightbox.classList.remove("active");
-            document.body.style.overflow = "";
-          });
-
-          lightbox.addEventListener("click", function (e) {
-            if (e.target === lightbox) {
-              lightbox.classList.remove("active");
-              document.body.style.overflow = "";
-            }
-          });
-
-          const idx = order.indexOf(id);
-          const prevId = order[(idx - 1 + order.length) % order.length];
-          const nextId = order[(idx + 1) % order.length];
-          document.getElementById("pagination").innerHTML =
-            '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
-            '<span class="pagination-label">← Prev</span>' +
-            '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
-            '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
-            '<span class="pagination-label">Next →</span>' +
-            '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
-
-          return;
-        }
-
-        /* The Dreamers retro-French layout */
-        if (id === "dreamers") {
-          const basePath = movie.poster.substring(0, movie.poster.lastIndexOf("/") + 1);
-
-          const hero = document.getElementById("detailHero");
+        } else if (id === "dreamers") {
           hero.className = "dreamers-hero";
           hero.style.backgroundImage = 'url("' + basePath + '戏梦巴黎-背景.jpg")';
           hero.innerHTML =
@@ -613,7 +390,6 @@
             '<img src="' + basePath + '蜡烛.jpg" alt="" style="--rot:-4deg;--top:58%;--left:12%;--w:26vw;--z:2;" />' +
             "</div>";
 
-          const esc = (s) => s.replace(/"/g, "&quot;");
           const reviewCine = `1968年，注定成为人类历史上不可抹去的一笔重彩。在西贡，"春节攻势"打垮了美国大兵；在路易士港，人民宣布民族独立；在伦敦，大游行涌向了美国使馆。"反叛"是1968年的主题词，整个世界都为之沸腾了。而席卷法兰西的这场"五月风暴"无疑可以视为1968年的年度符号。不要看了那些剧照就以为这部电影色情了，也不要因为导演是贝托鲁奇就想入非非了。就是这么一部充斥着裸体影像的电影，甚至不必用"情色"来标签，因为在更大的程度上，它是那些1960年代的文化在今日的回响。对于贝托鲁奇来说，性爱与政治都并非池中之物，理想主义随风飘荡的1960年代的气息才是他想呈现的。`;
           const reviewRev = "二零零四年二月十四日的晚上，THE DREAMERS在多伦多上映，我和两个男孩去看了这部电影。我非常喜爱这部电影的开头。弥漫着六十年代动荡不安的气味和巴黎流动的狂欢氛围。这里的巴黎是六十年代末的巴黎，1968年的巴黎。迷茫而令人激动的六十年代正在结束着，大麻的烟雾正逐渐消散开来，狂欢的盛宴即将谢幕。在巴黎的美国人Matthew与Isabelle和Theo这对姐弟相遇，他们将他带入他们的公寓，他们的生活，他们的巴黎。影片画面非常美，张张明信片般，看得人目眩神迷。这也是Bertolucci片子一贯的特色。";
 
@@ -644,57 +420,54 @@
             "</div>";
 
           document.querySelector("footer").before(secondAct);
-
-          const lightbox = document.createElement("div");
-          lightbox.className = "lightbox";
-          lightbox.id = "lightbox";
-          lightbox.innerHTML =
-            '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
-            '<div class="lightbox-content" id="lightboxContent"></div>';
-          document.body.appendChild(lightbox);
-
-          document.querySelectorAll(".card").forEach(function (card) {
-            card.addEventListener("click", function () {
-              const type = card.dataset.type;
-              const content = document.getElementById("lightboxContent");
-              if (type === "img") {
-                content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
-              } else {
-                content.innerHTML =
-                  '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
-                  "<p>" + card.dataset.full + "</p></div>";
-              }
-              lightbox.classList.add("active");
-              document.body.style.overflow = "hidden";
-            });
-          });
-
-          document.getElementById("lightboxClose").addEventListener("click", function () {
-            lightbox.classList.remove("active");
-            document.body.style.overflow = "";
-          });
-
-          lightbox.addEventListener("click", function (e) {
-            if (e.target === lightbox) {
-              lightbox.classList.remove("active");
-              document.body.style.overflow = "";
-            }
-          });
-
-          const idx = order.indexOf(id);
-          const prevId = order[(idx - 1 + order.length) % order.length];
-          const nextId = order[(idx + 1) % order.length];
-          document.getElementById("pagination").innerHTML =
-            '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
-            '<span class="pagination-label">← Prev</span>' +
-            '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
-            '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
-            '<span class="pagination-label">Next →</span>' +
-            '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
-
-          return;
         }
 
+        const lightbox = document.createElement("div");
+        lightbox.className = "lightbox";
+        lightbox.id = "lightbox";
+        lightbox.innerHTML =
+          '<button class="lightbox-close" id="lightboxClose">&times;</button>' +
+          '<div class="lightbox-content" id="lightboxContent"></div>';
+        document.body.appendChild(lightbox);
+
+        document.querySelectorAll(".card").forEach(function (card) {
+          card.addEventListener("click", function () {
+            const type = card.dataset.type;
+            const content = document.getElementById("lightboxContent");
+            if (type === "img") {
+              content.innerHTML = '<img class="lightbox-img" src="' + card.dataset.src + '" alt="" />';
+            } else {
+              content.innerHTML =
+                '<div class="lightbox-review"><h3>' + card.dataset.author + "</h3>" +
+                "<p>" + card.dataset.full + "</p></div>";
+            }
+            lightbox.classList.add("active");
+            document.body.style.overflow = "hidden";
+          });
+        });
+
+        document.getElementById("lightboxClose").addEventListener("click", function () {
+          lightbox.classList.remove("active");
+          document.body.style.overflow = "";
+        });
+
+        lightbox.addEventListener("click", function (e) {
+          if (e.target === lightbox) {
+            lightbox.classList.remove("active");
+            document.body.style.overflow = "";
+          }
+        });
+
+        const idx = order.indexOf(id);
+        const prevId = order[(idx - 1 + order.length) % order.length];
+        const nextId = order[(idx + 1) % order.length];
+        document.getElementById("pagination").innerHTML =
+          '<a href="detail-classic.html?id=' + prevId + '" class="pagination-btn">' +
+          '<span class="pagination-label">← Prev</span>' +
+          '<span class="pagination-title">' + movies[prevId].title + "</span></a>" +
+          '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
+          '<span class="pagination-label">Next →</span>' +
+          '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
       })();
     </script>
   </body>
