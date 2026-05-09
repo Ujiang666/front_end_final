@@ -19,65 +19,156 @@
     </nav>
 
     <div class="test-page-container">
-      <h2 class="feature-title">趣味小功能</h2>
+           <div class="page-headline">
+        <h2>趣味小功能</h2>
+        <div class="subtitle">INTERACTIVE · CINEMA · FEATURES</div>
+        <div class="red-line"></div>
+      </div>
 
       <div class="features-grid">
-        <!-- 1. 电影主角性格小测试（5题版） -->
+        <!-- ===== 1. 电影主角性格测试 ===== -->
         <div class="feature-card">
-          <div class="feature-icon">🎬</div>
-          <h3 class="feature-title">电影主角性格小测试</h3>
+          <div class="card-header">
+            <div class="card-icon">🎬</div>
+            <h3 class="card-title">电影主角性格测试</h3>
+            <span class="card-badge">5题</span>
+          </div>
 
-          <div class="test-container">
-            <div class="question" id="questionText">题目加载中...</div>
-            <div class="answer-btns" id="answerBtns"></div>
-            <div class="test-result" id="testResult"></div>
-            <button
-              class="draw-btn"
-              id="restartBtn"
-              style="display: none; margin: 15px auto 0"
-            >
-              重新测试
-            </button>
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="quizProgressFill"></div>
+          </div>
+          <div class="quiz-counter" id="quizCounter">第 1 题 / 共 5 题</div>
+          <div class="quiz-question-text" id="quizQuestion"></div>
+          <div class="quiz-options" id="quizOptions"></div>
+
+          <div class="quiz-result-card" id="quizResult">
+            <span class="result-char-emoji" id="resultEmoji"></span>
+            <div class="result-char-name" id="resultName"></div>
+            <div class="result-char-desc" id="resultDesc"></div>
+            <div class="result-tags" id="resultTags"></div>
+            <button class="btn" onclick="restartQuiz()">🔄 重新测试</button>
           </div>
         </div>
 
-        <!-- 2. 电影冷知识每日一推 -->
+        <!-- ===== 2. 电影冷知识 ===== -->
         <div class="feature-card">
-          <div class="feature-icon">📚</div>
-          <h3 class="feature-title">电影冷知识每日一推</h3>
-          <div class="fact-content" id="factContent"></div>
-          <button class="refresh-btn" onclick="refreshFact()">
-            换一条冷知识
-          </button>
+          <div class="card-header">
+            <div class="card-icon">📚</div>
+            <h3 class="card-title">电影冷知识每日一推</h3>
+            <span class="card-badge">20+条</span>
+          </div>
+
+          <div class="fact-category-tabs" id="factTabs"></div>
+
+          <div class="fact-card-inner">
+            <span class="fact-quote-mark">"</span>
+            <div class="fact-text" id="factText">加载中…</div>
+            <div class="fact-source" id="factSource"></div>
+          </div>
+
+          <div class="fact-counter-row">
+            <span class="fact-index" id="factIndex"></span>
+            <div class="fact-actions">
+              <button class="btn btn-ghost" onclick="prevFact()">← 上一条</button>
+              <button class="btn" onclick="nextFact()">换一条 →</button>
+            </div>
+          </div>
         </div>
 
-        <!-- 3. 电影随机抽签选片器 -->
+        <!-- ===== 3. 随机选片器 ===== -->
         <div class="feature-card">
-          <div class="feature-icon">🎲</div>
-          <h3 class="feature-title">电影随机抽签选片器</h3>
-          <button class="draw-btn" onclick="randomMovie()">
-            🎬 随机抽一部电影
-          </button>
-          <div class="random-result" id="randomResult"></div>
+          <div class="card-header">
+            <div class="card-icon">🎲</div>
+            <h3 class="card-title">电影随机选片器</h3>
+          </div>
+
+          <div class="mood-filter-row" id="moodFilterRow"></div>
+
+          <div class="slot-machine">
+            <div class="slot-label">TODAY'S PICK</div>
+            <div class="slot-reel">
+              <div class="slot-items-wrap" id="slotWrap">
+                <div class="slot-item" id="slotItem">点击下方按钮开始抽签</div>
+              </div>
+            </div>
+            <div class="slot-result-meta" id="slotMeta"></div>
+          </div>
+
+          <div style="text-align:center">
+            <button class="btn" onclick="spinSlot()" id="spinBtn">🎬 随机抽一部</button>
+          </div>
         </div>
 
-        <!-- 4. 留言投稿推荐电影 -->
+        <!-- ===== 4. 电影台词竞猜 (NEW) ===== -->
         <div class="feature-card">
-          <div class="feature-icon">✍️</div>
-          <h3 class="feature-title">留言投稿推荐电影</h3>
-          <form class="message-form" id="messageForm">
-            <input type="text" placeholder="你的昵称" id="userName" required />
-            <input
-              type="text"
-              placeholder="推荐电影名"
-              id="movieName"
-              required
-            />
-            <textarea placeholder="推荐理由" id="reason"></textarea>
-            <button type="submit" class="submit-btn">提交推荐</button>
-          </form>
-          <div class="message-list" id="messageList"></div>
+          <div class="card-header">
+            <div class="card-icon">💬</div>
+            <h3 class="card-title">电影台词竞猜</h3>
+            <span class="card-badge">NEW</span>
+          </div>
+
+          <div class="quote-score-row">
+            <span>当前得分</span>
+            <span class="quote-score-num" id="quoteScore">0</span>
+            <span>本轮题数</span>
+            <span class="quote-score-num" id="quoteTotal">0</span>
+            <button class="btn btn-ghost" style="padding:5px 12px;font-size:0.75rem" onclick="resetQuoteGame()">重置</button>
+          </div>
+
+          <div class="movie-quote-display">
+            <span class="big-quote">"</span>
+            <div class="quote-text" id="quoteText">加载中…</div>
+          </div>
+
+          <div class="quote-options" id="quoteOptions"></div>
+          <div class="quote-feedback" id="quoteFeedback"></div>
+          <div style="text-align:center">
+            <button class="btn" onclick="nextQuote()" id="nextQuoteBtn" style="display:none">下一题 →</button>
+          </div>
         </div>
+
+        <!-- ===== 5. 今日心情推荐 (NEW, 全宽) ===== -->
+        <div class="feature-card full-width">
+          <div class="card-header">
+            <div class="card-icon">🌟</div>
+            <h3 class="card-title">今日心情 · 观影推荐</h3>
+            <span class="card-badge">AI PICK</span>
+          </div>
+          <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:18px;letter-spacing:0.06em">选择你现在的心情，我们为你推荐最合适的电影 —</p>
+
+          <div class="mood-grid" id="moodGrid"></div>
+
+          <div class="mood-reco-card" id="moodRecoCard">
+            <div class="mood-reco-title" id="moodRecoTitle"></div>
+            <div class="mood-reco-reason" id="moodRecoReason"></div>
+            <div class="mood-reco-movies" id="moodRecoMovies"></div>
+          </div>
+        </div>
+
+        <!-- ===== 6. 留言投稿 ===== -->
+        <div class="feature-card full-width">
+          <div class="card-header">
+            <div class="card-icon">✍️</div>
+            <h3 class="card-title">留言投稿 · 推荐电影</h3>
+          </div>
+
+          <div class="message-input-group">
+            <div class="msg-input-row">
+              <input class="msg-input" id="userName" placeholder="你的昵称" maxlength="12" />
+              <input class="msg-input" id="movieName" placeholder="推荐的电影名" maxlength="30" />
+            </div>
+            <textarea class="msg-textarea" id="reason" placeholder="说说你的推荐理由…" maxlength="200"></textarea>
+            <div>
+              <button class="btn" onclick="submitMessage()">📮 提交推荐</button>
+            </div>
+          </div>
+
+          <hr class="divider">
+          <div id="messageList">
+            <div class="msg-empty">还没有留言，快来第一个推荐吧！</div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -90,5 +181,5 @@
     </footer>
 
     <script src="../js/script.js"></script>
-  </body>
+</body>
 </html>

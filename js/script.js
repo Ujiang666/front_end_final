@@ -881,271 +881,534 @@ document.addEventListener("DOMContentLoaded", function () {
 // ======================
 // test.html 四个板块交互逻辑
 // ======================
-document.addEventListener("DOMContentLoaded", function () {
-  // ======================================
-  // 1.电影主角性格小测试（5题 + 自动判结果）
-  const testQuestions = [
-    {
-      q: "1. 遇到困难你会？",
-      ans: [
-        { t: "默默坚持，不放弃", type: "阿甘" },
-        { t: "乐观面对，寻找出路", type: "楚门" },
-        { t: "冷静思考，慢慢成长", type: "千寻" },
-        { t: "用智慧和技术解决", type: "钢铁侠" },
-      ],
-    },
-    {
-      q: "2. 朋友遇到危险，你会？",
-      ans: [
-        { t: "不顾一切冲上去帮忙", type: "阿甘" },
-        { t: "先安抚情绪再想办法", type: "千寻" },
-        { t: "制定计划再行动", type: "钢铁侠" },
-        { t: "陪在身边给予勇气", type: "楚门" },
-      ],
-    },
-    {
-      q: "3. 你更向往？",
-      ans: [
-        { t: "简单真诚的生活", type: "阿甘" },
-        { t: "自由真实的世界", type: "楚门" },
-        { t: "成长变强的自己", type: "千寻" },
-        { t: "创造改变世界", type: "钢铁侠" },
-      ],
-    },
-    {
-      q: "4. 别人误解你时，你会？",
-      ans: [
-        { t: "不解释，用行动证明", type: "阿甘" },
-        { t: "难过但会自我调节", type: "千寻" },
-        { t: "直接说清楚真相", type: "楚门" },
-        { t: "用实力打脸对方", type: "钢铁侠" },
-      ],
-    },
-    {
-      q: "5. 你最喜欢的特质是？",
-      ans: [
-        { t: "善良、执着", type: "阿甘" },
-        { t: "勇敢、求真", type: "楚门" },
-        { t: "温柔、坚强", type: "千寻" },
-        { t: "聪明、自信", type: "钢铁侠" },
-      ],
-    },
-  ];
+/* ============================================================
+   趣味小功能 - 全部交互逻辑
+============================================================ */
+    (function () {
 
-  // 结果描述
-  const characterResults = {
-    阿甘: "你最像《阿甘正传》阿甘：善良、真诚、执着，靠纯粹打动世界。",
-    楚门: "你最像《楚门的世界》楚门：向往自由、勇敢、追求真实人生。",
-    千寻: "你最像《千与千寻》千寻：温柔又坚强，在成长中闪闪发光。",
-    钢铁侠: "你最像《钢铁侠》托尼·斯塔克：聪明、自信、有担当，天生领袖。",
-  };
+      /* ──────────────────────────────────────────────
+         1. 电影主角性格小测试（增强版）
+      ────────────────────────────────────────────── */
+      const testQuestions = [
+        {
+          q: "遇到人生困境，你的第一反应是？",
+          ans: [
+            { t: "默默坚持，用行动说话", type: "阿甘" },
+            { t: "保持乐观，想办法突破现状", type: "楚门" },
+            { t: "沉住气，相信自己能慢慢成长", type: "千寻" },
+            { t: "冷静分析，用智慧找到出路", type: "钢铁侠" },
+          ],
+        },
+        {
+          q: "好友陷入危机，你会怎么做？",
+          ans: [
+            { t: "不顾一切，第一个冲上去", type: "阿甘" },
+            { t: "先稳住情绪，再一起想办法", type: "千寻" },
+            { t: "快速制定计划，有条不紊解决", type: "钢铁侠" },
+            { t: "一直陪在身边，给他勇气", type: "楚门" },
+          ],
+        },
+        {
+          q: "你最向往的生活状态是？",
+          ans: [
+            { t: "简单真诚，活在当下", type: "阿甘" },
+            { t: "自由真实，活出真实的自己", type: "楚门" },
+            { t: "不断成长，看见更好的自己", type: "千寻" },
+            { t: "创造改变，让世界因我不同", type: "钢铁侠" },
+          ],
+        },
+        {
+          q: "被人误解时，你通常会？",
+          ans: [
+            { t: "不解释，用后来的行动证明", type: "阿甘" },
+            { t: "难过，但自己消化后调整好", type: "千寻" },
+            { t: "直接把真相说清楚", type: "楚门" },
+            { t: "用实力和成果让对方闭嘴", type: "钢铁侠" },
+          ],
+        },
+        {
+          q: "你最欣赏自己的哪个特质？",
+          ans: [
+            { t: "善良、执着，永不放弃", type: "阿甘" },
+            { t: "勇敢、真实，追求自由", type: "楚门" },
+            { t: "温柔、坚韧，越挫越勇", type: "千寻" },
+            { t: "聪明、自信，天生领袖", type: "钢铁侠" },
+          ],
+        },
+      ];
 
-  // 测试核心逻辑
-  let currentQ = 0;
-  let score = { 阿甘: 0, 楚门: 0, 千寻: 0, 钢铁侠: 0 };
+      const charData = {
+        阿甘: {
+          emoji: "🏃",
+          name: "阿甘  ·  Forrest Gump",
+          desc: "你如《阿甘正传》中的阿甘——善良纯粹，用不懈的坚持打动世界。生活的复杂对你而言只有一个答案：一直跑下去。",
+          tags: ["善良", "执着", "真诚", "不屈"],
+          film: "《阿甘正传》(1994)",
+        },
+        楚门: {
+          emoji: "🌅",
+          name: "楚门  ·  Truman Burbank",
+          desc: "你如《楚门的世界》中的楚门——对真实的渴望让你勇敢跨越所有边界。即使整个世界都是布景，你也要找到那扇真正的门。",
+          tags: ["自由", "勇敢", "好奇", "求真"],
+          film: "《楚门的世界》(1998)",
+        },
+        千寻: {
+          emoji: "🌸",
+          name: "千寻  ·  Chihiro",
+          desc: "你如《千与千寻》中的千寻——温柔却无比坚强。面对陌生与恐惧，你选择一步一步往前走，在成长中放出耀眼的光。",
+          tags: ["温柔", "坚强", "成长", "善良"],
+          film: "《千与千寻》(2001)",
+        },
+        钢铁侠: {
+          emoji: "⚙️",
+          name: "托尼·斯塔克  ·  Iron Man",
+          desc: "你如《钢铁侠》中的托尼·斯塔克——聪明、自信，天生的问题解决者。你相信用智慧和创造力可以改变一切局面。",
+          tags: ["聪明", "自信", "创造", "担当"],
+          film: "《钢铁侠》(2008)",
+        },
+      };
 
-  function renderQuestion() {
-    const q = testQuestions[currentQ];
-    document.getElementById("questionText").innerText = q.q;
-    document.getElementById("questionText").style.display = "block"; // 显示题目
-    const btnWrap = document.getElementById("answerBtns");
-    btnWrap.style.display = "flex"; // 显示选项
-    btnWrap.innerHTML = "";
+      let quizCurrent = 0;
+      let quizScore = { 阿甘: 0, 楚门: 0, 千寻: 0, 钢铁侠: 0 };
 
-    q.ans.forEach((item) => {
-      const b = document.createElement("button");
-      b.className = "answer-btn";
-      b.innerText = item.t;
-      b.onclick = () => selectAnswer(item.type);
-      btnWrap.appendChild(b);
-    });
-  }
+      function renderQuestion() {
+        const q = testQuestions[quizCurrent];
+        const total = testQuestions.length;
+        const pct = (quizCurrent / total) * 100;
 
-  function selectAnswer(type) {
-    score[type]++;
-    currentQ++;
-    if (currentQ < testQuestions.length) {
+        document.getElementById("quizProgressFill").style.width = pct + "%";
+        document.getElementById("quizCounter").textContent = `第 ${quizCurrent + 1} 题 / 共 ${total} 题`;
+        document.getElementById("quizQuestion").textContent = q.q;
+
+        const wrap = document.getElementById("quizOptions");
+        wrap.innerHTML = "";
+        q.ans.forEach((item) => {
+          const btn = document.createElement("button");
+          btn.className = "quiz-option-btn";
+          btn.textContent = item.t;
+          btn.onclick = () => selectAnswer(item.type);
+          wrap.appendChild(btn);
+        });
+
+        document.getElementById("quizResult").classList.remove("show");
+        document.getElementById("quizQuestion").style.display = "";
+        document.getElementById("quizOptions").style.display = "";
+      }
+
+      function selectAnswer(type) {
+        quizScore[type]++;
+        quizCurrent++;
+        if (quizCurrent < testQuestions.length) {
+          renderQuestion();
+        } else {
+          showResult();
+        }
+      }
+
+      function showResult() {
+        document.getElementById("quizProgressFill").style.width = "100%";
+        document.getElementById("quizQuestion").style.display = "none";
+        document.getElementById("quizOptions").style.display = "none";
+        document.getElementById("quizCounter").textContent = "测试完成 ✓";
+
+        let maxType = "阿甘";
+        for (let t in quizScore) {
+          if (quizScore[t] > quizScore[maxType]) maxType = t;
+        }
+        const c = charData[maxType];
+        document.getElementById("resultEmoji").textContent = c.emoji;
+        document.getElementById("resultName").textContent = c.name;
+        document.getElementById("resultDesc").textContent = c.desc;
+        document.getElementById("resultTags").innerHTML =
+          c.tags.map((t) => `<span class="result-tag">${t}</span>`).join("") +
+          `<span class="result-tag" style="border-color:rgba(245,197,24,0.3);color:var(--gold);background:rgba(245,197,24,0.08)">${c.film}</span>`;
+
+        document.getElementById("quizResult").classList.add("show");
+      }
+
+      window.restartQuiz = function () {
+        quizCurrent = 0;
+        quizScore = { 阿甘: 0, 楚门: 0, 千寻: 0, 钢铁侠: 0 };
+        renderQuestion();
+      };
+
       renderQuestion();
-    } else {
-      showResult();
-    }
-  }
 
-  function showResult() {
-    // 关键：隐藏题目和选项
-    document.getElementById("questionText").style.display = "none";
-    document.getElementById("answerBtns").style.display = "none";
+      /* ──────────────────────────────────────────────
+         2. 电影冷知识（分类 + 翻页）
+      ────────────────────────────────────────────── */
+      const factsData = [
+        { text: "《泰坦尼克号》中杰克为萝丝画裸像的那只手，其实是导演詹姆斯·卡梅隆亲手画的。", source: "《泰坦尼克号》1997", cat: "制作秘辛" },
+        { text: "《盗梦空间》里那条经典的旋转走廊，是剧组耗资100万美元真实搭建的可360°旋转机械装置。", source: "《盗梦空间》2010", cat: "制作秘辛" },
+        { text: "《黑客帝国》里那道绿色代码雨，其实是导演沃卓斯基将寿司食谱扫描后反转得来的字符。", source: "《黑客帝国》1999", cat: "制作秘辛" },
+        { text: "《闪灵》里那场血潮戏共使用了超过9000加仑假血，并前后拍摄了3天才完成。", source: "《闪灵》1980", cat: "制作秘辛" },
+        { text: "《星际穿越》中的黑洞「卡冈图雅」，是由天体物理学家精确计算后渲染的，研究成果还发表成了学术论文。", source: "《星际穿越》2014", cat: "科学冷知" },
+        { text: "《阿凡达》里纳威人使用的语言，是语言学家保罗·弗罗默为影片专门创造的，拥有完整语法体系。", source: "《阿凡达》2009", cat: "科学冷知" },
+        { text: "《侏罗纪公园》中霸王龙的咆哮声，是由小狗、企鹅和老虎的叫声混合而成的。", source: "《侏罗纪公园》1993", cat: "科学冷知" },
+        { text: "《教父》里那只猫是开拍前游荡在片场的流浪猫，马龙·白兰度随手抱起后就直接开拍了，完全是临时发挥。", source: "《教父》1972", cat: "趣味花絮" },
+        { text: "《阿甘正传》中那根羽毛飘落的开场镜头，是完全由电脑动画合成的，而非实拍。", source: "《阿甘正传》1994", cat: "趣味花絮" },
+        { text: "《疯狂动物城》里反应极慢的树懒「闪电」，其配音演员实际上语速极快，为了配合角色刻意放慢。", source: "《疯狂动物城》2016", cat: "趣味花絮" },
+        { text: "《龙猫》里的公交车站戏份只在日本映映版中出现，宫崎骏说那是他最喜欢的场景之一。", source: "《龙猫》1988", cat: "趣味花絮" },
+        { text: "《指环王》中咕噜的所有动作与表情，都由演员安迪·瑟金斯通过动作捕捉完成，开创了这一技术的先河。", source: "《指环王》2001", cat: "制作秘辛" },
+        { text: "《肖申克的救赎》中安迪逃跑时爬过的臭水沟，全长约500英尺，蒂姆·罗宾斯实际在里面爬行了多个小时。", source: "《肖申克的救赎》1994", cat: "制作秘辛" },
+        { text: "《楚门的世界》里那整片大海，其实是一个巨型摄影棚内的蓝色背景与风浪机组合，片场在加拿大。", source: "《楚门的世界》1998", cat: "制作秘辛" },
+        { text: "《千与千寻》里汤婆婆的澡堂，原型参考了日本道后温泉本馆，但宫崎骏将其进行了大量改造创作。", source: "《千与千寻》2001", cat: "趣味花絮" },
+        { text: "《复仇者联盟4》最终决战场景中，有超过700名视觉效果艺术家参与制作，历时3年完成后期。", source: "《复仇者联盟4》2019", cat: "制作秘辛" },
+        { text: "《寻梦环游记》导演李·昂克里奇为了创作这部电影，花了六年时间深入研究墨西哥文化和亡灵节习俗。", source: "《寻梦环游记》2017", cat: "科学冷知" },
+        { text: "《小丑》2019版中亚瑟标志性的笑声，是杰昆·菲尼克斯耗费数月刻意练习的，据说练习期间他吓到了不少剧组人员。", source: "《小丑》2019", cat: "趣味花絮" },
+        { text: "《这个杀手不太冷》里里昂那盆万年青，象征着他在充满暴力的生活中唯一纯净的希望，该植物在片尾被种入土地。", source: "《这个杀手不太冷》1994", cat: "趣味花絮" },
+        { text: "《搏击俱乐部》中有大量仅出现一帧的隐藏画面，导演大卫·芬奇在DVD花絮中专门列出了彩蛋清单。", source: "《搏击俱乐部》1999", cat: "趣味花絮" },
+      ];
 
-    let maxType = "阿甘";
-    for (let t in score) {
-      if (score[t] > score[maxType]) maxType = t;
-    }
-    document.getElementById("testResult").innerHTML =
-      `<strong>🎉 你的电影主角是：</strong><br>${characterResults[maxType]}`;
-    document.getElementById("testResult").classList.add("show");
-    document.getElementById("restartBtn").style.display = "block";
-  }
+      const factCategories = ["全部", ...new Set(factsData.map((f) => f.cat))];
+      let factCurrentCat = "全部";
+      let factFiltered = [...factsData];
+      let factIndex = 0;
 
-  function restartTest() {
-    currentQ = 0;
-    score = { 阿甘: 0, 楚门: 0, 千寻: 0, 钢铁侠: 0 };
-    document.getElementById("testResult").classList.remove("show");
-    document.getElementById("restartBtn").style.display = "none";
-    renderQuestion();
-  }
+      function buildFactTabs() {
+        const wrap = document.getElementById("factTabs");
+        wrap.innerHTML = "";
+        factCategories.forEach((cat) => {
+          const btn = document.createElement("button");
+          btn.className = "fact-tab" + (cat === factCurrentCat ? " active" : "");
+          btn.textContent = cat;
+          btn.onclick = () => {
+            factCurrentCat = cat;
+            factFiltered = cat === "全部" ? [...factsData] : factsData.filter((f) => f.cat === cat);
+            factIndex = 0;
+            renderFact();
+            buildFactTabs();
+          };
+          wrap.appendChild(btn);
+        });
+      }
 
-  // 关键：页面加载完直接调用，不依赖事件
-  window.restartTest = restartTest;
-  // 直接启动，避免 DOMContentLoaded 失效
-  renderQuestion();
-  document.getElementById("restartBtn").onclick = restartTest;
-  // 2. 电影冷知识每日一推
-  const facts = [
-    "《泰坦尼克号》中杰克的素描画，其实是导演詹姆斯·卡梅隆亲手画的。",
-    "《千与千寻》里的汤屋，原型是日本四国的道后温泉本馆。",
-    "《肖申克的救赎》中主角贴海报的洞，是用CG特效做出来的。",
-    "《盗梦空间》里的旋转走廊，是剧组真实搭建的可旋转机械装置。",
-    "《阿甘正传》中羽毛飘落的镜头，完全是电脑动画制作的。",
-    "《楚门的世界》里的整片大海，其实都是摄影棚的蓝色背景。",
-    "《星际穿越》里的黑洞画面，是由专业天体物理学家计算渲染的。",
-    "《疯狂动物城》的树懒“闪电”，配音演员其实是语速超快的配音员。",
-    "《阿凡达》里的纳威语，是语言学家专门为电影创造的完整语言。",
-    "《指环王》中咕噜的动作，全部由演员安迪·瑟金斯通过动作捕捉完成。",
-    "《这个杀手不太冷》里里昂养的植物，是一株万年青，象征希望。",
-    "《哈利·波特与魔法石》里的对角巷，是剧组1:1搭建的实景街道。",
-    "《黑客帝国》里的绿色代码雨，其实是寿司食谱的文字扫描版。",
-    "《闪灵》中经典的血潮镜头，使用了超过3000加仑的假血。",
-    "《寻梦环游记》的灵感，来自导演对墨西哥亡灵节的深度调研。",
-    "《速度与激情》系列里的很多跑车，都是手工改装的真实车辆。",
-    "《复仇者联盟4》的最终决战，有超过1000名演员同时出演群戏。",
-    "《小丑》2019版中亚瑟的笑声，是演员杰昆·菲尼克斯刻意练习数月的成果。",
-    "《龙猫》里的龙猫形象，是宫崎骏根据传说中的森林精灵设计的。",
-    "《教父》里猫的戏份是临时加的，因为小猫一直趴在马龙·白兰度怀里不走。",
-  ];
-  const factContent = document.getElementById("factContent");
-  window.refreshFact = function () {
-    factContent.textContent = facts[Math.floor(Math.random() * facts.length)];
-  };
-  if (factContent) refreshFact();
+      function renderFact() {
+        const f = factFiltered[factIndex];
+        const el = document.getElementById("factText");
+        el.style.opacity = 0;
+        setTimeout(() => {
+          el.textContent = f.text;
+          el.style.opacity = 1;
+          document.getElementById("factSource").textContent = "— " + f.source;
+          document.getElementById("factIndex").textContent = `${factIndex + 1} / ${factFiltered.length}`;
+        }, 200);
+      }
 
-  // 3. 电影随机抽签选片器
-  const movieList = [
-    "《阿甘正传》",
-    "《盗梦空间》",
-    "《星际穿越》",
-    "《楚门的世界》",
-    "《少年派的奇幻漂流》",
-    "《泰坦尼克号》",
-    "《千与千寻》",
-    "《肖申克的救赎》",
-    "《哈利波特与魔法石》",
-    "《指环王：护戒使者》",
-    "《疯狂动物城》",
-    "《阿凡达》",
-    "《低俗小说》",
-    "《闪灵》",
-    "《黑客帝国》",
-    "《复仇者联盟》",
-    "《狮子王》",
-    "《寻梦环游记》",
-    "《千与千寻》",
-    "《龙猫》",
-    "《哈尔的移动城堡》",
-    "《幽灵公主》",
-    "《风之谷》",
-    "《侧耳倾听》",
-    "《起风了》",
-    "《天空之城》",
-    "《红猪》",
-    "《魔女宅急便》",
-    "《我的邻居山田君》",
-    "《听见涛声》",
-    "《无间道》",
-    "《霸王别姬》",
-    "《让子弹飞》",
-    "《大话西游》",
-    "《功夫》",
-    "《喜剧之王》",
-    "《重庆森林》",
-    "《花样年华》",
-    "《重庆森林》",
-    "《2046》",
-    "《东邪西毒》",
-    "《阿飞正传》",
-    "《春光乍泄》",
-    "《一代宗师》",
-    "《卧虎藏龙》",
-    "《十面埋伏》",
-    "《英雄》",
-    "《满城尽带黄金甲》",
-    "《夜宴》",
-    "《金陵十三钗》",
-    "《流浪地球》",
-    "《我不是药神》",
-    "《哪吒之魔童降世》",
-    "《战狼2》",
-    "《你好，李焕英》",
-    "《唐人街探案》",
-    "《西虹市首富》",
-    "《夏洛特烦恼》",
-    "《羞羞的铁拳》",
-    "《李茶的姑妈》",
-    "《这个杀手不太冷》",
-    "《低俗小说》",
-    "《搏击俱乐部》",
-    "《致命ID》",
-    "《禁闭岛》",
-    "《记忆碎片》",
-    "《七宗罪》",
-    "《沉默的羔羊》",
-    "《电锯惊魂》",
-    "《致命魔术》",
-    "《致命伴侣》",
-    "《速度与激情》",
-    "《变形金刚》",
-    "《钢铁侠》",
-    "《美国队长》",
-    "《雷神》",
-    "《绿巨人》",
-    "《蚁人》",
-    "《奇异博士》",
-    "《黑豹》",
-    "《惊奇队长》",
-    "《银河护卫队》",
-    "《复仇者联盟2》",
-    "《复仇者联盟3》",
-    "《复仇者联盟4》",
-    "《侏罗纪公园》",
-    "《侏罗纪世界》",
-    "《金刚》",
-    "《哥斯拉》",
-    "《环太平洋》",
-    "《加勒比海盗》",
-    "《哈利波特与密室》",
-    "《哈利波特与阿兹卡班的囚徒》",
-    "《哈利波特与火焰杯》",
-    "《哈利波特与凤凰社》",
-  ];
-  window.randomMovie = function () {
-    const res = document.getElementById("randomResult");
-    res.textContent =
-      "抽到：" + movieList[Math.floor(Math.random() * movieList.length)];
-  };
+      window.nextFact = function () {
+        factIndex = (factIndex + 1) % factFiltered.length;
+        renderFact();
+      };
+      window.prevFact = function () {
+        factIndex = (factIndex - 1 + factFiltered.length) % factFiltered.length;
+        renderFact();
+      };
 
-  // 4. 留言投稿推荐电影
-  const form = document.getElementById("messageForm");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const name = document.getElementById("userName").value;
-      const movie = document.getElementById("movieName").value;
-      const reason = document.getElementById("reason").value;
-      const list = document.getElementById("messageList");
-      const item = document.createElement("div");
-      item.style.marginBottom = "6px";
-      item.innerHTML = `<strong>${name}</strong> 推荐《${movie}》：${reason}`;
-      list.prepend(item);
-      form.reset();
-    });
-  }
-});
+      buildFactTabs();
+      renderFact();
+
+      /* ──────────────────────────────────────────────
+         3. 随机选片器（老虎机动画 + 心情筛选）
+      ────────────────────────────────────────────── */
+      const moviePool = [
+        { title: "《肖申克的救赎》", mood: ["励志", "经典"], year: 1994, genre: "剧情" },
+        { title: "《阿甘正传》", mood: ["励志", "温情"], year: 1994, genre: "剧情" },
+        { title: "《盗梦空间》", mood: ["烧脑", "刺激"], year: 2010, genre: "科幻" },
+        { title: "《星际穿越》", mood: ["烧脑", "温情"], year: 2014, genre: "科幻" },
+        { title: "《楚门的世界》", mood: ["励志", "经典"], year: 1998, genre: "剧情" },
+        { title: "《千与千寻》", mood: ["温情", "治愈"], year: 2001, genre: "动画" },
+        { title: "《龙猫》", mood: ["治愈", "温情"], year: 1988, genre: "动画" },
+        { title: "《寻梦环游记》", mood: ["温情", "治愈"], year: 2017, genre: "动画" },
+        { title: "《哈尔的移动城堡》", mood: ["治愈", "温情"], year: 2004, genre: "动画" },
+        { title: "《这个杀手不太冷》", mood: ["经典", "刺激"], year: 1994, genre: "动作" },
+        { title: "《搏击俱乐部》", mood: ["烧脑", "刺激"], year: 1999, genre: "剧情" },
+        { title: "《禁闭岛》", mood: ["烧脑", "刺激"], year: 2010, genre: "悬疑" },
+        { title: "《记忆碎片》", mood: ["烧脑"], year: 2000, genre: "悬疑" },
+        { title: "《七宗罪》", mood: ["烧脑", "刺激"], year: 1995, genre: "悬疑" },
+        { title: "《霸王别姬》", mood: ["经典"], year: 1993, genre: "剧情" },
+        { title: "《大话西游》", mood: ["温情", "经典"], year: 1995, genre: "喜剧" },
+        { title: "《重庆森林》", mood: ["治愈", "经典"], year: 1994, genre: "剧情" },
+        { title: "《花样年华》", mood: ["治愈", "经典"], year: 2000, genre: "剧情" },
+        { title: "《指环王：护戒使者》", mood: ["刺激", "经典"], year: 2001, genre: "奇幻" },
+        { title: "《哈利·波特与魔法石》", mood: ["治愈", "励志"], year: 2001, genre: "奇幻" },
+        { title: "《疯狂动物城》", mood: ["励志", "治愈"], year: 2016, genre: "动画" },
+        { title: "《泰坦尼克号》", mood: ["温情", "经典"], year: 1997, genre: "剧情" },
+        { title: "《少年派的奇幻漂流》", mood: ["励志", "烧脑"], year: 2012, genre: "剧情" },
+        { title: "《我不是药神》", mood: ["励志", "经典"], year: 2018, genre: "剧情" },
+        { title: "《哪吒之魔童降世》", mood: ["励志", "刺激"], year: 2019, genre: "动画" },
+      ];
+
+      const moods = ["全部", "励志", "治愈", "温情", "烧脑", "刺激", "经典"];
+      let activeMood = "全部";
+      let slotRunning = false;
+
+      function buildMoodFilter() {
+        const row = document.getElementById("moodFilterRow");
+        row.innerHTML = "";
+        moods.forEach((m) => {
+          const btn = document.createElement("button");
+          btn.className = "mood-btn" + (m === activeMood ? " active" : "");
+          btn.textContent = m;
+          btn.onclick = () => {
+            activeMood = m;
+            document.querySelectorAll(".mood-btn").forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+          };
+          row.appendChild(btn);
+        });
+      }
+
+      window.spinSlot = function () {
+        if (slotRunning) return;
+        slotRunning = true;
+        const btn = document.getElementById("spinBtn");
+        btn.disabled = true;
+
+        const pool = activeMood === "全部" ? moviePool : moviePool.filter((m) => m.mood.includes(activeMood));
+        if (!pool.length) {
+          document.getElementById("slotItem").textContent = "该心情下暂无电影~";
+          slotRunning = false; btn.disabled = false; return;
+        }
+
+        const wrap = document.getElementById("slotWrap");
+        const total = 25;
+        let count = 0;
+        const chosen = pool[Math.floor(Math.random() * pool.length)];
+
+        const interval = setInterval(() => {
+          const rnd = pool[Math.floor(Math.random() * pool.length)];
+          wrap.innerHTML = `<div class="slot-item">${rnd.title}</div>`;
+          count++;
+          if (count >= total) {
+            clearInterval(interval);
+            wrap.innerHTML = `<div class="slot-item" style="color:var(--gold);font-weight:700">${chosen.title}</div>`;
+            document.getElementById("slotMeta").innerHTML =
+              `<span style="color:#888">${chosen.year} · ${chosen.genre}</span>`;
+            slotRunning = false;
+            btn.disabled = false;
+          }
+        }, 80);
+      };
+
+      buildMoodFilter();
+
+      /* ──────────────────────────────────────────────
+         4. 电影台词竞猜
+      ────────────────────────────────────────────── */
+      const quotes = [
+        { text: "生活就像一盒巧克力，你永远不知道下一颗是什么味道。", answer: "《阿甘正传》", options: ["《阿甘正传》", "《楚门的世界》", "《当幸福来敲门》", "《美丽人生》"] },
+        { text: "有些鸟儿是关不住的，它们的羽毛太鲜亮了。", answer: "《肖申克的救赎》", options: ["《肖申克的救赎》", "《飞越疯人院》", "《美丽心灵》", "《死亡诗社》"] },
+        { text: "我们来到这个世界，不是为了符合别人的期望。", answer: "《千与千寻》", options: ["《龙猫》", "《千与千寻》", "《哈尔的移动城堡》", "《侧耳倾听》"] },
+        { text: "人们不问事情为什么会发生，只问什么时候会结束。", answer: "《美丽人生》", options: ["《辛德勒的名单》", "《美丽人生》", "《钢琴师》", "《大屠杀》"] },
+        { text: "你是否能接受在你最黑暗的时刻，上帝就是你的敌人？", answer: "《禁闭岛》", options: ["《七宗罪》", "《禁闭岛》", "《沉默的羔羊》", "《搏击俱乐部》"] },
+        { text: "我们都是在别人故事里的配角，都是在自己故事里的主角。", answer: "《楚门的世界》", options: ["《楚门的世界》", "《记忆碎片》", "《致命ID》", "《蝴蝶效应》"] },
+        { text: "过去的事已经过去，未来的事还未来临，我只活在当下。", answer: "《花样年华》", options: ["《重庆森林》", "《2046》", "《花样年华》", "《阿飞正传》"] },
+        { text: "理解一件事物不代表认同它，认同它不代表要成为它。", answer: "《搏击俱乐部》", options: ["《搏击俱乐部》", "《记忆碎片》", "《禁闭岛》", "《七宗罪》"] },
+      ];
+
+      let quoteIdx = 0;
+      let quoteUsed = [];
+      let quoteScoreVal = 0;
+      let quoteTotalVal = 0;
+      let quoteAnswered = false;
+
+      function getNextQuote() {
+        if (quoteUsed.length >= quotes.length) quoteUsed = [];
+        let idx;
+        do { idx = Math.floor(Math.random() * quotes.length); } while (quoteUsed.includes(idx));
+        quoteUsed.push(idx);
+        return idx;
+      }
+
+      function loadQuote() {
+        quoteAnswered = false;
+        quoteIdx = getNextQuote();
+        const q = quotes[quoteIdx];
+        document.getElementById("quoteText").textContent = q.text;
+        document.getElementById("quoteFeedback").textContent = "";
+        document.getElementById("nextQuoteBtn").style.display = "none";
+
+        const opts = document.getElementById("quoteOptions");
+        opts.innerHTML = "";
+        // 随机打乱选项顺序
+        const shuffled = [...q.options].sort(() => Math.random() - 0.5);
+        shuffled.forEach((opt) => {
+          const btn = document.createElement("button");
+          btn.className = "quote-opt-btn";
+          btn.textContent = opt;
+          btn.onclick = () => checkQuote(opt, q.answer, btn);
+          opts.appendChild(btn);
+        });
+      }
+
+      function checkQuote(chosen, answer, btn) {
+        if (quoteAnswered) return;
+        quoteAnswered = true;
+        quoteTotalVal++;
+        const fb = document.getElementById("quoteFeedback");
+        if (chosen === answer) {
+          quoteScoreVal++;
+          btn.classList.add("correct");
+          fb.style.color = "#81c784";
+          fb.textContent = "✓ 答对了！你真是个影迷！";
+        } else {
+          btn.classList.add("wrong");
+          fb.style.color = "#e57373";
+          fb.textContent = `✗ 答错了，正确答案是 ${answer}`;
+          // 高亮正确项
+          document.querySelectorAll(".quote-opt-btn").forEach((b) => {
+            if (b.textContent === answer) b.classList.add("correct");
+          });
+        }
+        document.querySelectorAll(".quote-opt-btn").forEach((b) => (b.disabled = true));
+        document.getElementById("quoteScore").textContent = quoteScoreVal;
+        document.getElementById("quoteTotal").textContent = quoteTotalVal;
+        document.getElementById("nextQuoteBtn").style.display = "inline-flex";
+      }
+
+      window.nextQuote = function () { loadQuote(); };
+      window.resetQuoteGame = function () {
+        quoteScoreVal = 0; quoteTotalVal = 0; quoteUsed = [];
+        document.getElementById("quoteScore").textContent = "0";
+        document.getElementById("quoteTotal").textContent = "0";
+        loadQuote();
+      };
+
+      loadQuote();
+
+      /* ──────────────────────────────────────────────
+         5. 今日心情推荐
+      ────────────────────────────────────────────── */
+      const moodRecos = [
+        {
+          emoji: "😄", label: "开心",
+          title: "想笑得更开心",
+          reason: "心情本就不错，再来点欢乐加倍！这几部充满趣味与温情的电影，能让你笑得合不拢嘴。",
+          movies: ["《疯狂动物城》", "《大话西游》", "《哪吒之魔童降世》", "《寻梦环游记》"],
+        },
+        {
+          emoji: "😔", label: "低落",
+          title: "需要一点温柔治愈",
+          reason: "心情低落时，不如让电影陪伴你。这些温暖的故事会悄悄告诉你：一切都会好起来的。",
+          movies: ["《千与千寻》", "《龙猫》", "《哈尔的移动城堡》", "《阿甘正传》"],
+        },
+        {
+          emoji: "😤", label: "烦躁",
+          title: "来点肾上腺素",
+          reason: "烦透了吗？不如找部节奏紧张的电影发泄一下，把烦恼抛诸脑后！",
+          movies: ["《盗梦空间》", "《速度与激情》", "《复仇者联盟4》", "《这个杀手不太冷》"],
+        },
+        {
+          emoji: "🤔", label: "无聊",
+          title: "来一场烧脑之旅",
+          reason: "百无聊赖？这些让人摸不着头脑却欲罢不能的悬疑神作，保证你看完还想再看一遍。",
+          movies: ["《禁闭岛》", "《记忆碎片》", "《搏击俱乐部》", "《七宗罪》"],
+        },
+        {
+          emoji: "💕", label: "思念",
+          title: "关于爱与陪伴",
+          reason: "思念某个人时，这些关于爱与遗失的电影，会让那种情感变得更加清晰而美好。",
+          movies: ["《花样年华》", "《泰坦尼克号》", "《重庆森林》", "《爱在黎明破晓前》"],
+        },
+        {
+          emoji: "🌟", label: "充电",
+          title: "来点力量与激励",
+          reason: "想从电影里汲取能量出发？这几部关于坚持、梦想和突破的故事，是最好的充电站。",
+          movies: ["《肖申克的救赎》", "《当幸福来敲门》", "《楚门的世界》", "《我不是药神》"],
+        },
+      ];
+
+      function buildMoodGrid() {
+        const grid = document.getElementById("moodGrid");
+        grid.innerHTML = "";
+        moodRecos.forEach((m, i) => {
+          const tile = document.createElement("div");
+          tile.className = "mood-tile";
+          tile.innerHTML = `<span class="mood-tile-emoji">${m.emoji}</span><span class="mood-tile-label">${m.label}</span>`;
+          tile.onclick = () => {
+            document.querySelectorAll(".mood-tile").forEach((t) => t.classList.remove("selected"));
+            tile.classList.add("selected");
+            showMoodReco(m);
+          };
+          grid.appendChild(tile);
+        });
+      }
+
+      function showMoodReco(m) {
+        const card = document.getElementById("moodRecoCard");
+        document.getElementById("moodRecoTitle").textContent = m.emoji + " " + m.title;
+        document.getElementById("moodRecoReason").textContent = m.reason;
+        document.getElementById("moodRecoMovies").innerHTML = m.movies
+          .map((mv) => `<span class="mood-reco-movie-tag">${mv}</span>`)
+          .join("");
+        card.classList.add("show");
+      }
+
+      buildMoodGrid();
+
+      /* ──────────────────────────────────────────────
+         6. 留言投稿
+      ────────────────────────────────────────────── */
+      let messages = JSON.parse(localStorage.getItem("cinemaMessages") || "[]");
+
+      function renderMessages() {
+        const list = document.getElementById("messageList");
+        if (!messages.length) {
+          list.innerHTML = '<div class="msg-empty">还没有留言，快来第一个推荐吧！</div>';
+          return;
+        }
+        list.innerHTML = messages
+          .map(
+            (m, i) => `
+          <div class="msg-item" id="msgItem${i}">
+            <div class="msg-item-header">
+              <div>
+                <span class="msg-user">${m.name}</span>
+                <span style="color:rgba(255,255,255,0.2);margin:0 6px">·</span>
+                <span class="msg-movie">${m.movie}</span>
+              </div>
+              <span class="msg-time">${m.time}</span>
+            </div>
+            ${m.reason ? `<div class="msg-reason">${m.reason}</div>` : ""}
+            <div class="msg-like-row">
+              <button class="msg-like-btn${m.liked ? " liked" : ""}" onclick="toggleLike(${i})">
+                ${m.liked ? "❤️" : "🤍"} ${m.likes}
+              </button>
+            </div>
+          </div>
+        `
+          )
+          .join("");
+      }
+
+      window.toggleLike = function (i) {
+        if (messages[i].liked) {
+          messages[i].liked = false;
+          messages[i].likes--;
+        } else {
+          messages[i].liked = true;
+          messages[i].likes++;
+        }
+        localStorage.setItem("cinemaMessages", JSON.stringify(messages));
+        renderMessages();
+      };
+
+      window.submitMessage = function () {
+        const name = document.getElementById("userName").value.trim();
+        const movie = document.getElementById("movieName").value.trim();
+        const reason = document.getElementById("reason").value.trim();
+        if (!name || !movie) { alert("请填写昵称和电影名！"); return; }
+
+        const now = new Date();
+        const time = `${now.getMonth() + 1}/${now.getDate()} ${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`;
+        messages.unshift({ name, movie: `《${movie}》`, reason, time, likes: 0, liked: false });
+        localStorage.setItem("cinemaMessages", JSON.stringify(messages));
+        document.getElementById("userName").value = "";
+        document.getElementById("movieName").value = "";
+        document.getElementById("reason").value = "";
+        renderMessages();
+      };
+
+      renderMessages();
+
+    })();

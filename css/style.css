@@ -1399,134 +1399,687 @@ test.html 四个交互板块专用样式
 不影响任何原有布局、头部、页脚
 -------------------- */
 /* 电影小测试 & 四个功能竖排样式 */
-.test-page-container {
-  max-width: 800px;
-  margin: 90px auto 40px;
-  padding: 0 20px;
-}
-.features-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-.feature-card {
-  background: rgba(0, 0, 0, 0.85);
-  border-radius: 10px;
-  padding: 30px;
-  transition:
-    transform 0.3s,
-    box-shadow 0.3s;
-}
-.feature-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-.feature-icon {
-  font-size: 36px;
-  color: #e50914;
-  margin-bottom: 16px;
-  text-align: center;
-}
-.feature-title {
-  font-size: 20px;
-  color: #fff;
-  margin-bottom: 20px;
-  text-align: center;
+/* ===== 趣味小功能专属增强样式 ===== */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Noto+Serif+SC:wght@400;700;900&family=Oranienbaum&display=swap');
+
+:root {
+  --red: #e50914;
+  --red-dark: #c40610;
+  --gold: #f5c518;
+  --bg-card: rgba(15, 15, 15, 0.92);
+  --bg-input: rgba(30, 30, 30, 0.9);
+  --text-muted: #888;
+  --border: rgba(229, 9, 20, 0.15);
 }
 
-/* 电影性格小测试 */
-.question {
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 15px;
+/* 页面容器 */
+.test-page-container {
+  max-width: 960px;
+  margin: 90px auto 60px;
+  padding: 0 24px;
 }
-.answer-btns {
+
+/* 页面大标题 */
+.page-headline {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.page-headline h2 {
+  font-family: 'Oranienbaum', serif;
+  font-size: 2.4rem;
+  letter-spacing: 0.2em;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.page-headline .subtitle {
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.page-headline .red-line {
+  width: 60px;
+  height: 2px;
+  background: var(--red);
+  margin: 16px auto 0;
+}
+
+/* 功能网格 */
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.feature-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 32px 28px;
+  border: 1px solid var(--border);
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--red);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.feature-card:hover {
+  border-color: rgba(229, 9, 20, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transform: translateY(-3px);
+}
+.feature-card:hover::before { opacity: 1; }
+
+/* 卡片头 */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.card-icon {
+  font-size: 1.6rem;
+  width: 46px; height: 46px;
+  background: rgba(229, 9, 20, 0.12);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.card-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+.card-badge {
+  font-size: 0.65rem;
+  background: rgba(245, 197, 24, 0.15);
+  color: var(--gold);
+  border: 1px solid rgba(245,197,24,0.3);
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.1em;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* 通用按钮 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  transition: background 0.25s, transform 0.15s;
+}
+.btn:hover { background: var(--red-dark); transform: scale(1.03); }
+.btn:active { transform: scale(0.98); }
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #ccc;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.06); transform: scale(1.03); }
+
+/* ===== 1. 性格测试 ===== */
+.quiz-progress-bar {
+  height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.quiz-progress-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+.quiz-counter {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.quiz-question-text {
+  font-size: 1rem;
+  color: #f0f0f0;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  min-height: 2.5em;
+  font-family: 'Noto Serif SC', serif;
+}
+.quiz-options {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 20px;
 }
-.answer-btn {
-  background: #333;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 6px;
+.quiz-option-btn {
+  background: rgba(255,255,255,0.04);
+  color: #ddd;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 16px;
+  border-radius: 8px;
   cursor: pointer;
   text-align: left;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
 }
-.answer-btn:hover {
-  background: #e50914;
+.quiz-option-btn::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 0;
+  background: rgba(229, 9, 20, 0.15);
+  transition: width 0.2s;
 }
-.test-result {
-  font-size: 16px;
+.quiz-option-btn:hover {
+  border-color: rgba(229, 9, 20, 0.5);
   color: #fff;
-  padding: 15px;
-  background: rgba(229, 9, 20, 0.1);
-  border-radius: 6px;
-  display: none;
 }
-.test-result.show {
+.quiz-option-btn:hover::before { width: 100%; }
+.quiz-result-card {
+  display: none;
+  text-align: center;
+  padding: 20px 10px;
+  animation: fadeSlideUp 0.5s ease forwards;
+}
+.quiz-result-card.show { display: block; }
+.result-char-emoji {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
   display: block;
+  animation: popIn 0.5s 0.2s both;
+}
+.result-char-name {
+  font-family: 'Oranienbaum', serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: 0.15em;
+}
+.result-char-desc {
+  font-size: 0.88rem;
+  color: #bbb;
+  line-height: 1.8;
+  max-width: 340px;
+  margin: 0 auto 20px;
+}
+.result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.result-tag {
+  font-size: 0.72rem;
+  background: rgba(229, 9, 20, 0.12);
+  color: #e88;
+  border: 1px solid rgba(229,9,20,0.25);
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.1em;
 }
 
-/* 冷知识 / 随机电影 / 留言 */
-.refresh-btn,
-.draw-btn,
-.submit-btn {
-  background: #e50914;
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 6px;
+/* ===== 2. 电影冷知识 ===== */
+.fact-category-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.fact-tab {
+  font-size: 0.72rem;
+  padding: 5px 13px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: #aaa;
   cursor: pointer;
+  font-family: 'Noto Serif SC', serif;
+  letter-spacing: 0.08em;
+  transition: all 0.2s;
+}
+.fact-tab.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.fact-card-inner {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 18px;
+  min-height: 100px;
+  position: relative;
+}
+.fact-quote-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  color: var(--red);
+  opacity: 0.18;
+  position: absolute;
+  top: -8px; left: 12px;
+  line-height: 1;
+  user-select: none;
+}
+.fact-text {
+  font-size: 0.9rem;
+  color: #ddd;
+  line-height: 1.9;
+  position: relative;
+  z-index: 1;
+  padding-top: 8px;
+  font-family: 'Noto Serif SC', serif;
+  transition: opacity 0.25s;
+}
+.fact-source {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: right;
   margin-top: 10px;
 }
-.refresh-btn:hover,
-.draw-btn:hover,
-.submit-btn:hover {
-  background: #c40610;
+.fact-counter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.fact-content,
-.random-result {
-  color: #eee;
-  margin: 15px 0;
-  font-size: 15px;
+.fact-index {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
 }
-.message-form input,
-.message-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  background: #222;
+.fact-actions { display: flex; gap: 8px; }
+
+/* ===== 3. 随机选片器 ===== */
+.slot-machine {
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(229,9,20,0.2);
+  border-radius: 10px;
+  padding: 24px 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  min-height: 90px;
+  position: relative;
+  overflow: hidden;
+}
+.slot-machine::before, .slot-machine::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 24px;
+  z-index: 2;
+  pointer-events: none;
+}
+.slot-machine::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
+}
+.slot-machine::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+.slot-reel {
+  overflow: hidden;
+  height: 44px;
+}
+.slot-items-wrap {
+  transition: transform 0.05s linear;
+}
+.slot-item {
+  height: 44px;
+  line-height: 44px;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.05rem;
   color: #fff;
-  border: none;
-  border-radius: 6px;
+  letter-spacing: 0.08em;
 }
-.message-form textarea {
-  resize: vertical;
-  min-height: 80px;
+.slot-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
-.message-list {
-  margin-top: 15px;
-  color: #ccc;
-  font-size: 14px;
+.slot-result-meta {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-top: 10px;
+  min-height: 1.2em;
 }
-.message-item {
-  margin-bottom: 8px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #333;
+.slot-genre-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin: 2px;
+}
+.mood-filter-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.mood-btn {
+  font-size: 0.75rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: #bbb;
+  cursor: pointer;
+  font-family: 'Noto Serif SC', serif;
+  transition: all 0.2s;
+}
+.mood-btn.active {
+  background: rgba(229,9,20,0.15);
+  border-color: rgba(229,9,20,0.5);
+  color: #ff8888;
 }
 
-/* 页脚固定底部（不影响原有结构） */
-html,
-body {
-  height: 100%;
+/* ===== 4. 电影台词竞猜 (NEW) ===== */
+.quote-game-wrap { }
+.movie-quote-display {
+  background: rgba(245,197,24,0.05);
+  border: 1px solid rgba(245,197,24,0.15);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 20px;
+  position: relative;
 }
-body {
+.movie-quote-display .big-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: var(--gold);
+  opacity: 0.2;
+  position: absolute;
+  top: -4px; left: 12px;
+  line-height: 1;
+}
+.quote-text {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: #f0e6c0;
+  line-height: 1.9;
+  position: relative;
+  z-index: 1;
+  padding-top: 6px;
+}
+.quote-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.quote-opt-btn {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #ccc;
+  padding: 11px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.85rem;
+  text-align: center;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+.quote-opt-btn:hover:not(:disabled) {
+  border-color: rgba(245,197,24,0.4);
+  background: rgba(245,197,24,0.06);
+  color: var(--gold);
+}
+.quote-opt-btn.correct {
+  background: rgba(76,175,80,0.2);
+  border-color: rgba(76,175,80,0.6);
+  color: #81c784;
+}
+.quote-opt-btn.wrong {
+  background: rgba(229,9,20,0.15);
+  border-color: rgba(229,9,20,0.5);
+  color: #e57373;
+}
+.quote-feedback {
+  font-size: 0.85rem;
+  min-height: 1.5em;
+  text-align: center;
+  margin-bottom: 12px;
+  font-family: 'Noto Serif SC', serif;
+  transition: all 0.3s;
+}
+.quote-score-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+.quote-score-num {
+  color: var(--gold);
+  font-size: 1rem;
+  font-family: 'Oranienbaum', serif;
+}
+
+/* ===== 5. 今日心情推荐 (NEW) ===== */
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.mood-tile {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 16px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.mood-tile:hover {
+  border-color: rgba(229,9,20,0.35);
+  background: rgba(229,9,20,0.06);
+  transform: translateY(-2px);
+}
+.mood-tile.selected {
+  border-color: var(--red);
+  background: rgba(229,9,20,0.12);
+}
+.mood-tile-emoji { font-size: 1.8rem; display: block; margin-bottom: 6px; }
+.mood-tile-label { font-size: 0.75rem; color: #bbb; letter-spacing: 0.08em; font-family: 'Noto Serif SC', serif; }
+.mood-reco-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: none;
+  animation: fadeSlideUp 0.4s ease;
+}
+.mood-reco-card.show { display: block; }
+.mood-reco-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1rem;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.mood-reco-reason {
+  font-size: 0.82rem;
+  color: #aaa;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.mood-reco-movies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.mood-reco-movie-tag {
+  font-size: 0.78rem;
+  padding: 5px 13px;
+  border-radius: 20px;
+  background: rgba(229,9,20,0.1);
+  border: 1px solid rgba(229,9,20,0.25);
+  color: #e88;
+  font-family: 'Noto Serif SC', serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.mood-reco-movie-tag:hover {
+  background: rgba(229,9,20,0.25);
+  color: #fff;
+}
+
+/* ===== 6. 留言墙 ===== */
+.message-input-group {
   display: flex;
   flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
 }
-footer {
-  margin-top: auto;
+.msg-input-row { display: flex; gap: 10px; }
+.msg-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 7px;
+  padding: 10px 14px;
+  color: #f0f0f0;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.25s;
+}
+.msg-input:focus { border-color: rgba(229,9,20,0.5); }
+.msg-input::placeholder { color: rgba(255,255,255,0.3); }
+.msg-textarea {
+  background: var(--bg-input);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 7px;
+  padding: 10px 14px;
+  color: #f0f0f0;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 0.88rem;
+  outline: none;
+  resize: vertical;
+  min-height: 70px;
+  width: 100%;
+  transition: border-color 0.25s;
+}
+.msg-textarea:focus { border-color: rgba(229,9,20,0.5); }
+.msg-textarea::placeholder { color: rgba(255,255,255,0.3); }
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.message-list::-webkit-scrollbar { width: 4px; }
+.message-list::-webkit-scrollbar-track { background: transparent; }
+.message-list::-webkit-scrollbar-thumb { background: rgba(229,9,20,0.3); border-radius: 2px; }
+.msg-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  padding: 14px 16px;
+  animation: fadeSlideUp 0.3s ease;
+  transition: border-color 0.2s;
+}
+.msg-item:hover { border-color: rgba(229,9,20,0.2); }
+.msg-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.msg-user { font-size: 0.8rem; color: var(--gold); font-family: 'Noto Serif SC', serif; font-weight: 700; }
+.msg-movie { font-size: 0.8rem; color: var(--red); }
+.msg-time { font-size: 0.68rem; color: rgba(255,255,255,0.25); }
+.msg-reason { font-size: 0.83rem; color: #aaa; line-height: 1.6; }
+.msg-like-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+.msg-like-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Noto Serif SC', serif;
+}
+.msg-like-btn:hover {
+  border-color: rgba(229,9,20,0.4);
+  color: var(--red);
+}
+.msg-like-btn.liked { border-color: var(--red); color: var(--red); background: rgba(229,9,20,0.08); }
+.msg-empty {
+  text-align: center;
+  padding: 24px;
+  color: rgba(255,255,255,0.2);
+  font-size: 0.85rem;
+  font-family: 'Noto Serif SC', serif;
+}
+
+/* 满屏占位卡片 */
+.feature-card.full-width { grid-column: 1 / -1; }
+
+/* 分隔线 */
+.divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin: 20px 0;
+}
+
+/* 动画 */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* 响应式 */
+@media (max-width: 700px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .quote-options { grid-template-columns: 1fr; }
+  .mood-grid { grid-template-columns: repeat(3, 1fr); }
 }
