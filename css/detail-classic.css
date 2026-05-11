@@ -60,6 +60,14 @@ nav {
   letter-spacing: 0.1em;
 }
 
+#userGreeting {
+  display: none;
+  font-family: 'Oranienbaum', serif;
+  font-size: 1.2rem;
+  color: #e50914;
+  letter-spacing: 0.1em;
+}
+
 .nav-links a {
   color: var(--text);
   text-decoration: none;

@@ -4,11 +4,14 @@ function initCarousel() {
   const indicators = document.querySelectorAll(".indicator");
   const prevBtn = document.querySelector(".carousel-prev");
   const nextBtn = document.querySelector(".carousel-next");
+  const slidesContainer = document.querySelector(".carousel-slides");
 
   if (!slides.length || !indicators.length) return;
 
   let currentIndex = 0;
   const slideCount = slides.length;
+  const slideWidth = 30;
+  const offset = (100 - slideWidth) / 2;
 
   function showSlide(index) {
     slides.forEach((slide, i) => {
@@ -17,6 +20,9 @@ function initCarousel() {
     });
     slides[index].classList.add("active");
     indicators[index].classList.add("active");
+    if (slidesContainer) {
+      slidesContainer.style.transform = `translateX(${offset - index * slideWidth}%)`;
+    }
   }
 
   function nextSlide() {
@@ -55,6 +61,8 @@ function initCarousel() {
       autoplayInterval = setInterval(nextSlide, 4000);
     });
   });
+
+  showSlide(currentIndex);
 }
 
 // 展开/收起功能
