@@ -1414,7 +1414,7 @@ test.html 四个交互板块专用样式
 /* 页面容器 */
 .test-page-container {
   max-width: 960px;
-  margin: 90px auto 60px;
+  margin: 120px auto 60px;
   padding: 0 24px;
 }
 
@@ -1422,13 +1422,14 @@ test.html 四个交互板块专用样式
 .page-headline {
   text-align: center;
   margin-bottom: 48px;
+  padding-top: 45px;
 }
 .page-headline h2 {
   font-family: 'Oranienbaum', serif;
   font-size: 2.4rem;
   letter-spacing: 0.2em;
   color: #fff;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .page-headline .subtitle {
   font-size: 0.8rem;
@@ -1706,6 +1707,7 @@ test.html 四个交互板块专用样式
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap:9px;
 }
 .fact-index {
   font-size: 0.72rem;
