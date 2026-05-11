@@ -138,10 +138,9 @@ body {
 }
 
 .form-group label {
-  font-size: 0.8rem;
+  font-size: 1.05rem;
   color: #999;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .form-group input {
