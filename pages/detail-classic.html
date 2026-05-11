@@ -11,12 +11,14 @@
 
     <nav id="detailNav">
       <a href="index.html" class="site-logo">暗房CINEMA</a>
+      <span id="userGreeting"></span>
       <div id="pagination"></div>
       <ul class="nav-links">
         <li><a href="index.html">首页</a></li>
         <li><a href="actors.html">喜爱的演员</a></li>
         <li><a href="movie-rankings.html">电影榜单</a></li>
         <li><a href="test.html">趣味小功能</a></li>
+        <li id="logoutItem" style="display:none"><a href="#" id="logoutBtn">退出</a></li>
       </ul>
     </nav>
 
@@ -421,6 +423,30 @@
           '<a href="detail-classic.html?id=' + nextId + '" class="pagination-btn next">' +
           '<span class="pagination-label">Next →</span>' +
           '<span class="pagination-title">' + movies[nextId].title + "</span></a>";
+      })();
+    </script>
+    <script>
+      (function () {
+        const user = localStorage.getItem("cinemaUser");
+        if (user) {
+          const logo = document.querySelector(".site-logo");
+          const el = document.getElementById("userGreeting");
+          const logoutItem = document.getElementById("logoutItem");
+          if (logo) logo.style.display = "none";
+          if (el) {
+            el.textContent = user + "，欢迎来到暗房";
+            el.style.display = "block";
+          }
+          if (logoutItem) logoutItem.style.display = "list-item";
+        }
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+          logoutBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            localStorage.removeItem("cinemaUser");
+            window.location.reload();
+          });
+        }
       })();
     </script>
   </body>

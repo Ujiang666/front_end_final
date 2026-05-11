@@ -10,11 +10,13 @@
     <!-- 头部导航 -->
         <nav id="detailNav">
       <a href="index.html" class="site-logo">暗房CINEMA</a>
+      <span id="userGreeting"></span>
       <ul class="nav-links">
             <li class="active"><a href="index.html">首页</a></li>
             <li><a href="actors.html">喜爱的演员</a></li>
             <li><a href="movie-rankings.html">电影榜单</a></li>
             <li><a href="test.html">趣味小功能</a></li>
+            <li id="logoutItem" style="display:none"><a href="#" id="logoutBtn">退出</a></li>
       </ul>
     </nav>
 
@@ -46,13 +48,16 @@
       <div class="carousel-container">
         <div class="carousel-slides">
           <div class="carousel-slide active">
-            <img src="../images/carousel1.jpg" alt="电影推荐" />
+            <img src="../images/carousel1.webp" alt="电影推荐" />
           </div>
           <div class="carousel-slide">
-            <img src="../images/carousel2.jpg" alt="电影推荐" />
+            <img src="../images/carousel2.webp" alt="电影推荐" />
           </div>
           <div class="carousel-slide">
-            <img src="../images/carousel3.jpg" alt="电影推荐" />
+            <img src="../images/carousel3.webp" alt="电影推荐" />
+          </div>
+          <div class="carousel-slide">
+            <img src="../images/carousel4.webp" alt="电影推荐" />
           </div>
         </div>
         <button class="carousel-prev">‹</button>
@@ -61,6 +66,7 @@
           <button class="indicator active" data-index="0"></button>
           <button class="indicator" data-index="1"></button>
           <button class="indicator" data-index="2"></button>
+          <button class="indicator" data-index="3"></button>
         </div>
       </div>
     </section>
@@ -265,7 +271,44 @@
           }
 
           showMessage("验证通过！欢迎，" + name, "success");
+          localStorage.setItem("cinemaUser", name);
+          const loginSection = document.querySelector(".login-section");
+          if (loginSection) loginSection.style.display = "none";
+          const logo = document.querySelector(".site-logo");
+          const greet = document.getElementById("userGreeting");
+          const logoutItem = document.getElementById("logoutItem");
+          if (logo) logo.style.display = "none";
+          if (greet) {
+            greet.textContent = name + "，欢迎来到暗房";
+            greet.style.display = "block";
+          }
+          if (logoutItem) logoutItem.style.display = "list-item";
           form.reset();
+        });
+
+        // 页面加载时检查登录状态
+        (function () {
+          const savedUser = localStorage.getItem("cinemaUser");
+          if (savedUser) {
+            const loginSection = document.querySelector(".login-section");
+            if (loginSection) loginSection.style.display = "none";
+            const logo = document.querySelector(".site-logo");
+            const greet = document.getElementById("userGreeting");
+            const logoutItem = document.getElementById("logoutItem");
+            if (logo) logo.style.display = "none";
+            if (greet) {
+              greet.textContent = savedUser + "，欢迎来到暗房";
+              greet.style.display = "block";
+            }
+            if (logoutItem) logoutItem.style.display = "list-item";
+          }
+        })();
+
+        // 退出登录
+        document.getElementById("logoutBtn").addEventListener("click", function (e) {
+          e.preventDefault();
+          localStorage.removeItem("cinemaUser");
+          window.location.reload();
         });
       })();
     </script>
