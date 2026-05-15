@@ -22,6 +22,7 @@
 
     <!-- 登录 -->
     <section class="login-section">
+      <canvas id="loginArt"></canvas>
       <div class="login-container">
         <h2 class="login-title">加入暗房</h2>
         <form class="login-form" id="loginForm">
@@ -243,6 +244,58 @@
     <script>
       (function () {
         "use strict";
+
+        /* ---------- Canvas 红色艺术字 ---------- */
+        const art = document.getElementById("loginArt");
+        const ctx = art.getContext("2d");
+
+        function drawArt() {
+          const dpr = window.devicePixelRatio || 1;
+          const rect = art.getBoundingClientRect();
+          art.width = rect.width * dpr;
+          art.height = rect.height * dpr;
+          ctx.scale(dpr, dpr);
+          ctx.clearRect(0, 0, rect.width, rect.height);
+
+          const text = "CINEMA";
+          let fontSize = rect.width * 0.22;
+          ctx.font = '900 ' + fontSize + 'px "Noto Serif SC", sans-serif';
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+
+          let metrics = ctx.measureText(text);
+
+          // 限制文字宽度不超过 canvas 宽度的 70%
+          if (metrics.width > rect.width * 0.7) {
+            fontSize = fontSize * (rect.width * 0.7 / metrics.width);
+            ctx.font = '900 ' + fontSize + 'px "Noto Serif SC", sans-serif';
+            metrics = ctx.measureText(text);
+          }
+
+          // 限制文字高度不超出 canvas（留 20% 边距）
+          const textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+          if (textHeight > rect.height * 0.8) {
+            fontSize = fontSize * (rect.height * 0.8 / textHeight);
+            ctx.font = '900 ' + fontSize + 'px "Noto Serif SC", sans-serif';
+          }
+
+          // 红色发光
+          ctx.shadowColor = "#e50914";
+          ctx.shadowBlur = 35;
+          ctx.fillStyle = "#e50914";
+          ctx.fillText(text, rect.width / 2, rect.height / 2);
+
+          // 细白边增加层次
+          ctx.shadowBlur = 0;
+          ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+          ctx.lineWidth = 1;
+          ctx.strokeText(text, rect.width / 2, rect.height / 2);
+        }
+
+        document.fonts.ready.then(drawArt);
+        window.addEventListener("resize", drawArt);
+        /* --------------------------------------- */
+
         const form = document.getElementById("loginForm");
         const msg = document.getElementById("loginMessage");
 
@@ -273,7 +326,9 @@
           showMessage("验证通过！欢迎，" + name, "success");
           localStorage.setItem("cinemaUser", name);
           const loginSection = document.querySelector(".login-section");
-          if (loginSection) loginSection.style.display = "none";
+          const loginContainer = document.querySelector(".login-container");
+          if (loginSection) loginSection.style.minHeight = loginSection.offsetHeight + "px";
+          if (loginContainer) loginContainer.style.display = "none";
           const logo = document.querySelector(".site-logo");
           const greet = document.getElementById("userGreeting");
           const logoutItem = document.getElementById("logoutItem");
@@ -291,7 +346,9 @@
           const savedUser = localStorage.getItem("cinemaUser");
           if (savedUser) {
             const loginSection = document.querySelector(".login-section");
-            if (loginSection) loginSection.style.display = "none";
+            const loginContainer = document.querySelector(".login-container");
+            if (loginSection) loginSection.style.minHeight = loginSection.offsetHeight + "px";
+            if (loginContainer) loginContainer.style.display = "none";
             const logo = document.querySelector(".site-logo");
             const greet = document.getElementById("userGreeting");
             const logoutItem = document.getElementById("logoutItem");
